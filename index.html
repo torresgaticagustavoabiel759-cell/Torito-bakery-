@@ -3,492 +3,499 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#66734f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Torito Bakery">
+
+<link rel="manifest" href="./manifest.webmanifest">
 
 <title>Torito Bakery</title>
 
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="apple-touch-icon" href="./icon.svg">
-
-<meta name="theme-color" content="#66734f">
-
 <style>
-
 :root{
-    --verde:#66734f;
-    --verde-oscuro:#4f5b3d;
-    --crema:#f7f1e5;
-    --blanco:#fffdf8;
-    --texto:#34372f;
-    --gris:#77786f;
-    --rojo:#b85450;
-    --amarillo:#d29b38;
-    --verde-claro:#dfe6d2;
+  --verde:#66734f;
+  --verde-oscuro:#4f5b3d;
+  --crema:#f7f1e5;
+  --blanco:#fffdf8;
+  --texto:#34372f;
+  --gris:#77786f;
+  --rojo:#b85450;
+  --amarillo:#d29b38;
+  --verde-claro:#dfe6d2;
+  --borde:#e5dfd2;
+  --sombra:0 4px 16px rgba(70,70,50,.08);
 }
 
 *{
-    box-sizing:border-box;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
 body{
-    margin:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-    background:var(--crema);
-    color:var(--texto);
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:var(--crema);
+  color:var(--texto);
+  padding-bottom:85px;
 }
 
 button,
 input,
-select{
-    font:inherit;
+select,
+textarea{
+  font:inherit;
 }
 
 button{
-    cursor:pointer;
+  cursor:pointer;
 }
 
 .app{
-    max-width:650px;
-    margin:auto;
-    min-height:100vh;
-    background:var(--crema);
-    padding-bottom:90px;
+  width:100%;
+  max-width:650px;
+  margin:auto;
+  padding:16px;
 }
-
-/* HEADER */
 
 header{
-    padding:22px 20px 12px;
+  padding:8px 4px 18px;
 }
 
-.logo{
-    font-size:27px;
-    font-weight:800;
-    letter-spacing:-1px;
-    color:var(--verde);
+.logo-text{
+  color:var(--verde);
+  font-size:26px;
+  font-weight:800;
+  letter-spacing:-.5px;
 }
 
-.subtitle{
-    color:var(--gris);
-    font-size:14px;
-    margin-top:3px;
+.subtitulo{
+  color:var(--gris);
+  font-size:13px;
+  margin-top:2px;
 }
-
-/* SCREENS */
 
 .screen{
-    display:none;
-    padding:10px 18px 30px;
+  display:none;
 }
 
 .screen.active{
-    display:block;
-}
-
-h1{
-    font-size:27px;
-    margin:10px 0 5px;
+  display:block;
 }
 
 h2{
-    font-size:20px;
-    margin:20px 0 12px;
+  margin:5px 0 15px;
+  font-size:22px;
 }
 
-p{
-    line-height:1.45;
-}
-
-/* DASHBOARD */
-
-.dashboard{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-    margin-top:18px;
+h3{
+  margin:0 0 8px;
 }
 
 .card{
-    background:var(--blanco);
-    border-radius:18px;
-    padding:17px;
-    box-shadow:0 3px 12px rgba(50,50,40,.06);
+  background:var(--blanco);
+  border:1px solid var(--borde);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:12px;
+  box-shadow:var(--sombra);
 }
 
 .card-title{
-    color:var(--gris);
-    font-size:13px;
+  font-size:16px;
+  font-weight:700;
 }
 
-.card-value{
-    font-size:28px;
-    font-weight:800;
-    color:var(--verde);
-    margin-top:7px;
+.small{
+  color:var(--gris);
+  font-size:12px;
 }
 
-/* BUTTONS */
-
-.primary{
-    width:100%;
-    border:0;
-    background:var(--verde);
-    color:white;
-    border-radius:15px;
-    padding:14px;
-    font-weight:700;
-    margin-top:10px;
+.muted{
+  color:var(--gris);
 }
 
-.secondary{
-    border:1px solid #d8d3c6;
-    background:var(--blanco);
-    color:var(--texto);
-    border-radius:12px;
-    padding:10px 13px;
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
 }
 
-.danger{
-    background:#f6dfdd;
-    color:#9e3e39;
-    border:0;
-    border-radius:12px;
-    padding:10px 13px;
+.stat{
+  background:var(--blanco);
+  border:1px solid var(--borde);
+  border-radius:18px;
+  padding:15px;
+  box-shadow:var(--sombra);
 }
 
-/* SEARCH */
-
-.search{
-    width:100%;
-    padding:14px 15px;
-    border:1px solid #ddd8ca;
-    background:var(--blanco);
-    border-radius:14px;
-    outline:none;
-    margin:10px 0 15px;
+.stat-number{
+  font-size:25px;
+  font-weight:800;
+  color:var(--verde-oscuro);
 }
 
-.search:focus{
-    border-color:var(--verde);
+.stat-label{
+  font-size:12px;
+  color:var(--gris);
+  margin-top:3px;
 }
 
-/* INVENTORY */
-
-.inventory-item{
-    background:var(--blanco);
-    border-radius:17px;
-    padding:15px;
-    margin-bottom:10px;
-    box-shadow:0 2px 9px rgba(50,50,40,.05);
+.btn{
+  border:0;
+  border-radius:12px;
+  padding:11px 14px;
+  font-weight:700;
+  background:var(--verde);
+  color:white;
 }
 
-.item-top{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
+.btn:hover{
+  background:var(--verde-oscuro);
+}
+
+.btn.secondary{
+  background:var(--verde-claro);
+  color:var(--verde-oscuro);
+}
+
+.btn.danger{
+  background:#f1d8d6;
+  color:var(--rojo);
+}
+
+.btn.warning{
+  background:#f4e6c8;
+  color:#8a641d;
+}
+
+.btn.light{
+  background:#eeeae0;
+  color:var(--texto);
+}
+
+.btn.small-btn{
+  padding:7px 10px;
+  font-size:12px;
+}
+
+.actions{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  border:1px solid var(--borde);
+  background:#fff;
+  color:var(--texto);
+  border-radius:11px;
+  padding:11px;
+  outline:none;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:var(--verde);
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+label{
+  display:block;
+  font-size:12px;
+  font-weight:700;
+  color:var(--gris);
+  margin:10px 0 5px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+
+.form-grid.three{
+  grid-template-columns:1fr 1fr 1fr;
+}
+
+.item{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+}
+
+.item-left{
+  min-width:0;
 }
 
 .item-name{
-    font-weight:750;
-    font-size:16px;
-}
-
-.item-code{
-    font-size:12px;
-    color:var(--gris);
-    margin-top:4px;
-    word-break:break-all;
+  font-weight:700;
+  margin-bottom:3px;
 }
 
 .stock{
-    font-weight:800;
-    color:var(--verde);
-    white-space:nowrap;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.stock.ok{
+  color:var(--verde);
+}
+
+.stock.warning{
+  color:var(--amarillo);
 }
 
 .stock.low{
-    color:var(--rojo);
+  color:var(--rojo);
 }
-
-.stock-row{
-    margin-top:9px;
-    font-size:13px;
-    color:var(--gris);
-}
-
-.item-actions{
-    display:flex;
-    gap:8px;
-    margin-top:12px;
-}
-
-.item-actions button{
-    flex:1;
-}
-
-/* BADGES */
 
 .badge{
-    display:inline-block;
-    margin-top:8px;
-    padding:5px 9px;
-    border-radius:20px;
-    font-size:11px;
-    font-weight:700;
+  display:inline-block;
+  padding:4px 8px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:700;
 }
 
 .badge.ok{
-    background:var(--verde-claro);
-    color:var(--verde-oscuro);
+  background:var(--verde-claro);
+  color:var(--verde-oscuro);
+}
+
+.badge.warning{
+  background:#f4e6c8;
+  color:#8a641d;
 }
 
 .badge.low{
-    background:#f5e3c2;
-    color:#8c651e;
+  background:#f1d8d6;
+  color:var(--rojo);
 }
 
-.badge.empty{
-    background:#f3d8d5;
-    color:#963e39;
+.search{
+  margin-bottom:12px;
 }
 
-/* SCANNER */
-
-.scanner-box{
-    background:#111;
-    border-radius:22px;
-    overflow:hidden;
-    position:relative;
-    aspect-ratio:1/1;
-    margin-top:18px;
-}
-
-#video{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-}
-
-.scan-overlay{
-    position:absolute;
-    inset:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    pointer-events:none;
-}
-
-.scan-frame{
-    width:70%;
-    height:38%;
-    border:3px solid white;
-    border-radius:18px;
-    box-shadow:0 0 0 999px rgba(0,0,0,.28);
-}
-
-.scanner-status{
-    text-align:center;
-    margin:12px 0;
-    color:var(--gris);
-    font-size:14px;
-}
-
-.scanner-buttons{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-.manual-code{
-    margin-top:15px;
-}
-
-.manual-code input{
-    width:100%;
-    padding:13px;
-    border:1px solid #ddd8ca;
-    background:var(--blanco);
-    border-radius:13px;
-    outline:none;
-}
-
-.manual-code button{
-    width:100%;
-    margin-top:8px;
-}
-
-/* PRODUCTION */
-
-.production-card{
-    background:var(--blanco);
-    border-radius:18px;
-    padding:17px;
-}
-
-.production-card input{
-    width:100%;
-    padding:13px;
-    border:1px solid #ddd8ca;
-    border-radius:12px;
-    margin:7px 0 10px;
-}
-
-.recipe{
-    background:#f1eadc;
-    padding:13px;
-    border-radius:14px;
-    margin-top:12px;
-    font-size:14px;
-}
-
-/* PURCHASES */
-
-.purchase-item{
-    background:var(--blanco);
-    padding:15px;
-    border-radius:16px;
-    margin-bottom:10px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.purchase-item strong{
-    display:block;
-}
-
-.purchase-item span{
-    font-size:13px;
-    color:var(--gris);
-}
-
-/* MODAL */
-
-.modal{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.42);
-    z-index:100;
-    padding:20px;
-    align-items:flex-end;
-    justify-content:center;
-}
-
-.modal.active{
-    display:flex;
-}
-
-.modal-content{
-    width:100%;
-    max-width:620px;
-    background:var(--crema);
-    border-radius:24px 24px 0 0;
-    padding:20px;
-    max-height:90vh;
-    overflow:auto;
-}
-
-.modal-content h2{
-    margin-top:0;
-}
-
-.modal-content input,
-.modal-content select{
-    width:100%;
-    padding:13px;
-    border:1px solid #d8d3c6;
-    border-radius:12px;
-    background:var(--blanco);
-    margin:6px 0 12px;
-}
-
-.modal-actions{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-/* NAV */
-
-nav{
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    background:rgba(255,253,248,.96);
-    border-top:1px solid #ddd8ca;
-    display:flex;
-    justify-content:center;
-    z-index:90;
-    backdrop-filter:blur(10px);
-}
-
-.nav-inner{
-    width:100%;
-    max-width:650px;
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
+.bottom-nav{
+  position:fixed;
+  z-index:50;
+  bottom:0;
+  left:0;
+  right:0;
+  background:rgba(255,253,248,.97);
+  border-top:1px solid var(--borde);
+  padding:7px 5px calc(7px + env(safe-area-inset-bottom));
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  max-width:650px;
+  margin:auto;
+  backdrop-filter:blur(12px);
 }
 
 .nav-btn{
-    border:0;
-    background:none;
-    padding:10px 4px 12px;
-    color:#85857d;
-    font-size:11px;
+  border:0;
+  background:none;
+  color:var(--gris);
+  font-size:10px;
+  padding:5px 2px;
+  border-radius:10px;
 }
 
-.nav-btn span{
-    display:block;
-    font-size:21px;
-    margin-bottom:3px;
+.nav-btn .icon{
+  display:block;
+  font-size:20px;
+  line-height:23px;
 }
 
 .nav-btn.active{
-    color:var(--verde);
-    font-weight:800;
+  color:var(--verde-oscuro);
+  background:var(--verde-claro);
+  font-weight:700;
 }
 
-/* TOAST */
+.overlay{
+  display:none;
+  position:fixed;
+  z-index:100;
+  inset:0;
+  background:rgba(30,30,25,.48);
+  padding:15px;
+  align-items:flex-end;
+  justify-content:center;
+}
+
+.overlay.show{
+  display:flex;
+}
+
+.modal{
+  width:100%;
+  max-width:650px;
+  max-height:90vh;
+  overflow:auto;
+  background:var(--blanco);
+  border-radius:22px 22px 12px 12px;
+  padding:18px;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:8px;
+}
+
+.close{
+  border:0;
+  background:#eeeae0;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  font-size:18px;
+}
+
+.divider{
+  height:1px;
+  background:var(--borde);
+  margin:14px 0;
+}
+
+.recipe-row{
+  background:#faf7ef;
+  border:1px solid var(--borde);
+  border-radius:12px;
+  padding:10px;
+  margin-bottom:8px;
+}
+
+.recipe-row-grid{
+  display:grid;
+  grid-template-columns:1fr 90px 35px;
+  gap:7px;
+  align-items:end;
+}
+
+.remove-row{
+  border:0;
+  background:#f1d8d6;
+  color:var(--rojo);
+  border-radius:9px;
+  height:40px;
+}
+
+.empty{
+  text-align:center;
+  padding:25px 10px;
+  color:var(--gris);
+}
+
+.scanner-box{
+  position:relative;
+  width:100%;
+  aspect-ratio:4/3;
+  background:#20251b;
+  border-radius:18px;
+  overflow:hidden;
+  margin-bottom:12px;
+}
+
+#video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.scanner-line{
+  position:absolute;
+  left:12%;
+  right:12%;
+  top:50%;
+  height:2px;
+  background:#fff;
+  opacity:.8;
+}
+
+.scanner-text{
+  position:absolute;
+  bottom:12px;
+  left:0;
+  right:0;
+  text-align:center;
+  color:white;
+  font-size:12px;
+}
+
+.history-item{
+  padding:11px 0;
+  border-bottom:1px solid var(--borde);
+}
+
+.history-item:last-child{
+  border-bottom:0;
+}
+
+.price{
+  font-weight:800;
+  color:var(--verde-oscuro);
+}
+
+.cost-box{
+  background:var(--verde-claro);
+  border-radius:14px;
+  padding:14px;
+  margin-top:12px;
+}
+
+.cost-big{
+  font-size:24px;
+  font-weight:800;
+  color:var(--verde-oscuro);
+}
 
 .toast{
-    position:fixed;
-    left:50%;
-    bottom:92px;
-    transform:translateX(-50%) translateY(20px);
-    background:#33372f;
-    color:white;
-    padding:12px 17px;
-    border-radius:13px;
-    opacity:0;
-    pointer-events:none;
-    transition:.25s;
-    z-index:200;
-    font-size:14px;
-    max-width:90%;
-    text-align:center;
+  position:fixed;
+  z-index:200;
+  left:50%;
+  bottom:90px;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--texto);
+  color:white;
+  padding:11px 15px;
+  border-radius:12px;
+  font-size:13px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  max-width:90%;
+  text-align:center;
 }
 
 .toast.show{
-    opacity:1;
-    transform:translateX(-50%) translateY(0);
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
 }
 
-/* RESPONSIVE */
+@media(min-width:600px){
+  .overlay{
+    align-items:center;
+  }
 
-@media(min-width:700px){
-
-    body{
-        background:#e9e4d8;
-    }
-
-    .app{
-        box-shadow:0 0 30px rgba(0,0,0,.08);
-    }
-
+  .modal{
+    border-radius:22px;
+  }
 }
-
 </style>
 </head>
 
@@ -497,509 +504,400 @@ nav{
 <div class="app">
 
 <header>
-    <div class="logo">Torito Bakery</div>
-    <div class="subtitle">Inventario y producción</div>
+  <div class="logo-text">Torito Bakery</div>
+  <div class="subtitulo">Inventario y producción</div>
 </header>
 
-
-<!-- ================= INICIO ================= -->
-
+<!-- INICIO -->
 <section id="inicio" class="screen active">
 
-    <h1>Inicio</h1>
-    <p>Control general de Torito Bakery.</p>
+  <h2>Inicio</h2>
 
-    <div class="dashboard">
+  <div class="grid">
 
-        <div class="card">
-            <div class="card-title">Ingredientes</div>
-            <div class="card-value" id="dashboardItems">0</div>
-        </div>
-
-        <div class="card">
-            <div class="card-title">Por comprar</div>
-            <div class="card-value" id="dashboardBuy">0</div>
-        </div>
-
-        <div class="card">
-            <div class="card-title">Stock total</div>
-            <div class="card-value" id="dashboardStock">0</div>
-        </div>
-
-        <div class="card">
-            <div class="card-title">Producciones</div>
-            <div class="card-value" id="dashboardProduction">0</div>
-        </div>
-
+    <div class="stat">
+      <div class="stat-number" id="statIngredientes">0</div>
+      <div class="stat-label">Ingredientes</div>
     </div>
 
-    <button class="primary" onclick="showScreen('inventario')">
-        📦 Ver inventario
-    </button>
+    <div class="stat">
+      <div class="stat-number" id="statComprar">0</div>
+      <div class="stat-label">Por comprar</div>
+    </div>
 
-    <button class="primary" onclick="showScreen('escanear')">
-        📷 Escanear producto
-    </button>
+    <div class="stat">
+      <div class="stat-number" id="statRecetas">0</div>
+      <div class="stat-label">Recetas</div>
+    </div>
 
-    <button class="primary" onclick="showScreen('produccion')">
-        🥐 Registrar producción
-    </button>
+    <div class="stat">
+      <div class="stat-number" id="statProduccion">0</div>
+      <div class="stat-label">Producciones</div>
+    </div>
+
+  </div>
+
+  <div class="card" style="margin-top:12px">
+    <div class="card-title">Valor del inventario</div>
+    <div class="cost-big" id="statValor">$0.00</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Alertas de inventario</div>
+    <div id="inicioAlertas"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Acciones rápidas</div>
+
+    <div class="actions">
+      <button class="btn" onclick="openIngredientModal()">+ Ingrediente</button>
+      <button class="btn secondary" onclick="showScreen('recetas')">+ Receta</button>
+      <button class="btn secondary" onclick="showScreen('produccion')">Producción</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Datos</div>
+
+    <div class="actions">
+      <button class="btn light small-btn" onclick="exportBackup()">Exportar respaldo</button>
+      <button class="btn light small-btn" onclick="document.getElementById('importFile').click()">Importar respaldo</button>
+      <input id="importFile" type="file" accept=".json" style="display:none" onchange="importBackup(event)">
+    </div>
+  </div>
 
 </section>
 
 
-<!-- ================= INVENTARIO ================= -->
-
+<!-- INVENTARIO -->
 <section id="inventario" class="screen">
 
-    <h1>Inventario</h1>
+  <h2>Inventario</h2>
 
-    <input
-        id="searchInventory"
-        class="search"
-        placeholder="Buscar ingrediente..."
-        oninput="renderInventory()"
-    >
+  <input
+    class="search"
+    id="inventorySearch"
+    placeholder="Buscar ingrediente..."
+    oninput="renderInventory()"
+  >
 
-    <button class="primary" onclick="openAddItem()">
-        + Agregar ingrediente
-    </button>
+  <div class="actions" style="margin-bottom:12px">
+    <button class="btn" onclick="openIngredientModal()">+ Ingrediente</button>
+  </div>
 
-    <div id="inventoryList"></div>
+  <div id="inventoryList"></div>
 
 </section>
 
 
-<!-- ================= ESCANEAR ================= -->
-
+<!-- ESCANEAR -->
 <section id="escanear" class="screen">
 
-    <h1>Escanear</h1>
+  <h2>Escanear</h2>
 
-    <p>
-        Apunta la cámara al código de barras del ingrediente.
-    </p>
+  <div class="scanner-box">
+    <video id="video" playsinline muted></video>
+    <div class="scanner-line"></div>
+    <div class="scanner-text">Coloca el código de barras dentro de la línea</div>
+  </div>
 
-    <div class="scanner-box">
+  <div class="actions">
+    <button class="btn" onclick="startScanner()">Iniciar cámara</button>
+    <button class="btn light" onclick="stopScanner()">Detener</button>
+  </div>
 
-        <video
-            id="video"
-            autoplay
-            muted
-            playsinline>
-        </video>
+  <div class="card" style="margin-top:12px">
+    <div class="card-title">Código manual</div>
 
-        <div class="scan-overlay">
-            <div class="scan-frame"></div>
-        </div>
+    <label>Código de barras</label>
+    <input id="manualBarcode" placeholder="Ej. 7501234567890">
 
+    <div class="actions">
+      <button class="btn secondary" onclick="searchBarcodeManual()">Buscar código</button>
     </div>
+  </div>
 
-    <div id="scannerStatus" class="scanner-status">
-        Cámara apagada
-    </div>
-
-    <div class="scanner-buttons">
-
-        <button
-            id="startCameraBtn"
-            class="primary"
-            onclick="startScanner()">
-            📷 Abrir cámara
-        </button>
-
-        <button
-            class="secondary"
-            onclick="stopScanner()">
-            ⏹ Detener
-        </button>
-
-    </div>
-
-    <div class="manual-code">
-
-        <h2>Código manual</h2>
-
-        <input
-            id="manualBarcode"
-            inputmode="numeric"
-            placeholder="Ej. 7501234567890">
-
-        <button
-            class="primary"
-            onclick="processBarcode(document.getElementById('manualBarcode').value)">
-            🔎 Buscar código
-        </button>
-
-    </div>
+  <div id="scannerResult"></div>
 
 </section>
 
 
-<!-- ================= PRODUCCIÓN ================= -->
+<!-- RECETAS -->
+<section id="recetas" class="screen">
 
+  <h2>Recetas</h2>
+
+  <div class="actions" style="margin-bottom:12px">
+    <button class="btn" onclick="openRecipeModal()">+ Receta</button>
+  </div>
+
+  <div id="recipeList"></div>
+
+</section>
+
+
+<!-- PRODUCCIÓN -->
 <section id="produccion" class="screen">
 
-    <h1>Producción</h1>
+  <h2>Producción</h2>
 
-    <div class="production-card">
+  <div class="card">
 
-        <strong>Croissants</strong>
+    <label>Receta</label>
+    <select id="productionRecipe" onchange="updateProductionInfo()"></select>
 
-        <p>
-            Receta actual: 10 croissants por lote.
-        </p>
+    <label>Cantidad a producir</label>
+    <input id="productionQuantity" type="number" min="0.01" step="0.01" value="10" oninput="updateProductionInfo()">
 
-        <input
-            id="croissantQty"
-            type="number"
-            min="1"
-            value="10"
-            placeholder="Cantidad">
+    <div id="productionInfo"></div>
 
-        <button
-            class="primary"
-            onclick="produceCroissants()">
-            🥐 Producir
-        </button>
-
-        <div class="recipe">
-
-            <strong>Por cada 10 croissants:</strong>
-
-            <br>Harina: 0.500 kg
-            <br>Azúcar: 0.060 kg
-            <br>Leche: 0.200 kg
-            <br>Levadura: 0.018 kg
-            <br>Agua: 0.050 kg
-            <br>Sal: 0.010 kg
-            <br>Mantequilla: 0.330 kg
-
-        </div>
-
+    <div class="actions">
+      <button class="btn" onclick="produceRecipe()">Registrar producción</button>
     </div>
 
-    <h2>Historial</h2>
+  </div>
 
+  <div class="card">
+    <div class="card-title">Historial de producción</div>
     <div id="productionHistory"></div>
+  </div>
 
 </section>
 
 
-<!-- ================= COMPRAS ================= -->
-
+<!-- COMPRAS -->
 <section id="compras" class="screen">
 
-    <h1>Compras</h1>
+  <h2>Compras</h2>
 
-    <p>
-        Ingredientes que están en el mínimo o por debajo.
-    </p>
-
+  <div class="card">
+    <div class="card-title">Ingredientes por reponer</div>
     <div id="purchaseList"></div>
+  </div>
 
 </section>
 
-
 </div>
 
 
-<!-- ================= NAVEGACIÓN ================= -->
+<!-- NAV -->
+<nav class="bottom-nav">
 
-<nav>
+  <button class="nav-btn active" data-screen="inicio" onclick="showScreen('inicio')">
+    <span class="icon">⌂</span>
+    Inicio
+  </button>
 
-<div class="nav-inner">
+  <button class="nav-btn" data-screen="inventario" onclick="showScreen('inventario')">
+    <span class="icon">📦</span>
+    Inventario
+  </button>
 
-    <button
-        class="nav-btn active"
-        data-screen="inicio"
-        onclick="showScreen('inicio')">
+  <button class="nav-btn" data-screen="escanear" onclick="showScreen('escanear')">
+    <span class="icon">▣</span>
+    Escanear
+  </button>
 
-        <span>⌂</span>
-        Inicio
+  <button class="nav-btn" data-screen="recetas" onclick="showScreen('recetas')">
+    <span class="icon">🥐</span>
+    Recetas
+  </button>
 
-    </button>
+  <button class="nav-btn" data-screen="produccion" onclick="showScreen('produccion')">
+    <span class="icon">⚙</span>
+    Producción
+  </button>
 
-    <button
-        class="nav-btn"
-        data-screen="inventario"
-        onclick="showScreen('inventario')">
-
-        <span>📦</span>
-        Inventario
-
-    </button>
-
-    <button
-        class="nav-btn"
-        data-screen="escanear"
-        onclick="showScreen('escanear')">
-
-        <span>📷</span>
-        Escanear
-
-    </button>
-
-    <button
-        class="nav-btn"
-        data-screen="produccion"
-        onclick="showScreen('produccion')">
-
-        <span>🥐</span>
-        Producción
-
-    </button>
-
-    <button
-        class="nav-btn"
-        data-screen="compras"
-        onclick="showScreen('compras')">
-
-        <span>🛒</span>
-        Compras
-
-    </button>
-
-</div>
+  <button class="nav-btn" data-screen="compras" onclick="showScreen('compras')">
+    <span class="icon">🛒</span>
+    Compras
+  </button>
 
 </nav>
 
 
-<!-- ================= MODAL STOCK ================= -->
+<!-- MODAL INGREDIENTE -->
+<div class="overlay" id="ingredientModal">
 
-<div id="stockModal" class="modal">
+  <div class="modal">
 
-    <div class="modal-content">
-
-        <h2 id="stockModalTitle">
-            Movimiento
-        </h2>
-
-        <input
-            id="stockAmount"
-            type="number"
-            min="0"
-            step="0.001"
-            placeholder="Cantidad">
-
-        <div class="modal-actions">
-
-            <button
-                class="secondary"
-                onclick="closeModal()">
-                Cancelar
-            </button>
-
-            <button
-                class="primary"
-                onclick="confirmStockChange()">
-                Guardar
-            </button>
-
-        </div>
-
+    <div class="modal-head">
+      <h3 id="ingredientModalTitle">Nuevo ingrediente</h3>
+      <button class="close" onclick="closeModal('ingredientModal')">×</button>
     </div>
 
-</div>
+    <input type="hidden" id="ingredientId">
 
+    <label>Nombre</label>
+    <input id="ingredientName" placeholder="Ej. Harina">
 
-<!-- ================= MODAL AGREGAR ================= -->
+    <div class="form-grid">
 
-<div id="addModal" class="modal">
-
-    <div class="modal-content">
-
-        <h2>Nuevo ingrediente</h2>
-
-        <label>Nombre</label>
-
-        <input
-            id="newName"
-            placeholder="Ej. Harina">
-
-        <label>Unidad</label>
-
-        <select id="newUnit">
-
-            <option value="kg">kg</option>
-            <option value="L">L</option>
-            <option value="pz">pz</option>
-
-        </select>
-
+      <div>
         <label>Stock actual</label>
+        <input id="ingredientStock" type="number" step="0.001" min="0">
+      </div>
 
-        <input
-            id="newStock"
-            type="number"
-            min="0"
-            step="0.001">
-
-        <label>Stock mínimo</label>
-
-        <input
-            id="newMin"
-            type="number"
-            min="0"
-            step="0.001">
-
-        <label>Código de barras</label>
-
-        <input
-            id="newBarcode"
-            inputmode="numeric"
-            placeholder="Opcional">
-
-        <label>Precio de compra</label>
-
-        <input
-            id="newPrice"
-            type="number"
-            min="0"
-            step="0.01"
-            placeholder="Opcional">
-
-        <div class="modal-actions">
-
-            <button
-                class="secondary"
-                onclick="closeAddModal()">
-                Cancelar
-            </button>
-
-            <button
-                class="primary"
-                onclick="addItem()">
-                Guardar
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- ================= MODAL PRODUCTO ESCANEADO ================= -->
-
-<div id="scanProductModal" class="modal">
-
-    <div class="modal-content">
-
-        <h2 id="scanProductTitle">
-            Producto encontrado
-        </h2>
-
-        <p id="scanProductInfo"></p>
-
-        <div class="modal-actions">
-
-            <button
-                class="primary"
-                onclick="scanEntry()">
-                ➕ Entrada
-            </button>
-
-            <button
-                class="danger"
-                onclick="scanExit()">
-                ➖ Salida
-            </button>
-
-        </div>
-
-        <button
-            class="secondary"
-            style="width:100%;margin-top:10px"
-            onclick="closeScanProductModal()">
-            Cerrar
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- ================= MODAL CÓDIGO NUEVO ================= -->
-
-<div id="newBarcodeModal" class="modal">
-
-    <div class="modal-content">
-
-        <h2>Nuevo código</h2>
-
-        <p>
-            Este código todavía no está registrado.
-        </p>
-
-        <input
-            id="unknownBarcode"
-            readonly>
-
-        <label>Ingrediente</label>
-
-        <input
-            id="unknownName"
-            placeholder="Ej. Harina">
-
-        <label>Unidad</label>
-
-        <select id="unknownUnit">
-
-            <option value="kg">kg</option>
-            <option value="L">L</option>
-            <option value="pz">pz</option>
-
+      <div>
+        <label>Unidad base</label>
+        <select id="ingredientUnit">
+          <option value="kg">kg</option>
+          <option value="L">L</option>
+          <option value="pz">pz</option>
         </select>
-
-        <label>Stock actual</label>
-
-        <input
-            id="unknownStock"
-            type="number"
-            value="0"
-            min="0"
-            step="0.001">
-
-        <label>Stock mínimo</label>
-
-        <input
-            id="unknownMin"
-            type="number"
-            value="0"
-            min="0"
-            step="0.001">
-
-        <label>Precio de compra</label>
-
-        <input
-            id="unknownPrice"
-            type="number"
-            min="0"
-            step="0.01">
-
-        <div class="modal-actions">
-
-            <button
-                class="secondary"
-                onclick="closeNewBarcodeModal()">
-                Cancelar
-            </button>
-
-            <button
-                class="primary"
-                onclick="registerUnknownBarcode()">
-                Registrar
-            </button>
-
-        </div>
+      </div>
 
     </div>
+
+    <div class="form-grid">
+
+      <div>
+        <label>Stock mínimo</label>
+        <input id="ingredientMin" type="number" step="0.001" min="0">
+      </div>
+
+      <div>
+        <label>Precio por unidad base</label>
+        <input id="ingredientPrice" type="number" step="0.01" min="0">
+      </div>
+
+    </div>
+
+    <label>Presentación de compra</label>
+    <input id="ingredientPresentation" placeholder="Ej. costal de 20 kg">
+
+    <label>Precio de presentación</label>
+    <input id="ingredientPresentationPrice" type="number" step="0.01" min="0">
+
+    <label>Código de barras</label>
+    <input id="ingredientBarcode" placeholder="Opcional">
+
+    <div class="actions">
+      <button class="btn" onclick="saveIngredient()">Guardar</button>
+      <button class="btn light" onclick="closeModal('ingredientModal')">Cancelar</button>
+    </div>
+
+  </div>
 
 </div>
 
 
-<div id="toast" class="toast"></div>
+<!-- MODAL MOVIMIENTO -->
+<div class="overlay" id="movementModal">
+
+  <div class="modal">
+
+    <div class="modal-head">
+      <h3>Movimiento de inventario</h3>
+      <button class="close" onclick="closeModal('movementModal')">×</button>
+    </div>
+
+    <input type="hidden" id="movementIngredientId">
+
+    <div id="movementIngredientName" class="card-title"></div>
+
+    <label>Tipo de movimiento</label>
+
+    <select id="movementType">
+      <option value="entrada">Entrada</option>
+      <option value="salida">Salida</option>
+    </select>
+
+    <label>Cantidad</label>
+    <input id="movementQuantity" type="number" min="0.001" step="0.001">
+
+    <label>Nota</label>
+    <input id="movementNote" placeholder="Ej. Compra proveedor">
+
+    <div class="actions">
+      <button class="btn" onclick="saveMovement()">Guardar movimiento</button>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- MODAL RECETA -->
+<div class="overlay" id="recipeModal">
+
+  <div class="modal">
+
+    <div class="modal-head">
+      <h3 id="recipeModalTitle">Nueva receta</h3>
+      <button class="close" onclick="closeModal('recipeModal')">×</button>
+    </div>
+
+    <input type="hidden" id="recipeId">
+
+    <label>Nombre de receta</label>
+    <input id="recipeName" placeholder="Ej. Croissant">
+
+    <div class="form-grid">
+
+      <div>
+        <label>Rendimiento</label>
+        <input id="recipeYield" type="number" min="0.01" step="0.01">
+      </div>
+
+      <div>
+        <label>Unidad de rendimiento</label>
+        <input id="recipeYieldUnit" placeholder="piezas">
+      </div>
+
+    </div>
+
+    <label>Procedimiento</label>
+    <textarea id="recipeProcedure" placeholder="Escribe aquí el procedimiento..."></textarea>
+
+    <div class="divider"></div>
+
+    <div class="item">
+      <div>
+        <div class="card-title">Ingredientes</div>
+        <div class="small">Usa la misma unidad base del inventario.</div>
+      </div>
+
+      <button class="btn secondary small-btn" onclick="addRecipeIngredientRow()">
+        + Agregar
+      </button>
+    </div>
+
+    <div style="margin-top:12px" id="recipeIngredients"></div>
+
+    <div id="recipeCostPreview"></div>
+
+    <div class="actions">
+      <button class="btn" onclick="saveRecipe()">Guardar receta</button>
+      <button class="btn light" onclick="closeModal('recipeModal')">Cancelar</button>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- MODAL SCANNER -->
+<div class="overlay" id="barcodeModal">
+
+  <div class="modal">
+
+    <div class="modal-head">
+      <h3>Producto escaneado</h3>
+      <button class="close" onclick="closeModal('barcodeModal')">×</button>
+    </div>
+
+    <input type="hidden" id="scannedBarcode">
+
+    <div id="barcodeModalContent"></div>
+
+  </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
 
 
 <script>
@@ -1008,222 +906,571 @@ nav{
    DATOS
 ========================================================= */
 
-const defaultInventory = [
+const DEFAULT_INVENTORY = [
 
-{
+  {
     id:"azucar",
     name:"Azúcar",
     stock:11,
     unit:"kg",
     min:5,
     price:16.80,
+    presentation:"Saco 25 kg",
+    presentationPrice:420,
     barcode:""
-},
+  },
 
-{
+  {
     id:"mascabado",
     name:"Azúcar mascabado",
     stock:5,
     unit:"kg",
     min:2,
     price:40,
+    presentation:"Bolsa 2 kg",
+    presentationPrice:80,
     barcode:""
-},
+  },
 
-{
+  {
     id:"glas",
     name:"Azúcar glas",
     stock:2,
     unit:"kg",
     min:1,
     price:56,
+    presentation:"Bolsa 500 g",
+    presentationPrice:28,
     barcode:""
-},
+  },
 
-{
+  {
     id:"chocolate",
     name:"Chocolate",
     stock:5,
     unit:"kg",
     min:1,
     price:200,
+    presentation:"Bolsa 2 kg",
+    presentationPrice:400,
     barcode:""
-},
+  },
 
-{
+  {
     id:"cocoa",
     name:"Cocoa",
     stock:1.5,
     unit:"kg",
     min:.5,
     price:290,
+    presentation:"Bolsa 1 kg",
+    presentationPrice:290,
     barcode:""
-},
+  },
 
-{
+  {
     id:"arandanos",
     name:"Arándanos",
     stock:.5,
     unit:"kg",
     min:.5,
     price:100,
+    presentation:"Bolsa 1 kg",
+    presentationPrice:100,
     barcode:""
-},
+  },
 
-{
+  {
     id:"nueces",
     name:"Nueces",
     stock:1.5,
     unit:"kg",
     min:1,
     price:236.36,
+    presentation:"Bolsa 1.1 kg",
+    presentationPrice:260,
     barcode:""
-},
+  },
 
-{
+  {
     id:"avellanas",
     name:"Avellanas",
     stock:.35,
     unit:"kg",
     min:.5,
     price:290,
+    presentation:"Bolsa 1 kg",
+    presentationPrice:290,
     barcode:""
-},
+  },
 
-{
-    id:"nuezindia",
+  {
+    id:"nuez_india",
     name:"Nuez de la India",
     stock:0,
     unit:"kg",
     min:.5,
     price:280,
+    presentation:"Bolsa 1 kg",
+    presentationPrice:280,
     barcode:""
-},
+  },
 
-{
+  {
     id:"mermelada",
     name:"Mermelada",
     stock:.45,
     unit:"kg",
     min:.2,
     price:111.11,
+    presentation:"Frasco 450 g",
+    presentationPrice:50,
     barcode:""
-},
+  },
 
-{
+  {
     id:"huevo",
     name:"Huevo",
     stock:25,
     unit:"pz",
     min:30,
     price:2.13,
+    presentation:"Caja 150 piezas",
+    presentationPrice:320,
     barcode:""
-},
+  },
 
-{
+  {
     id:"philadelphia",
     name:"Queso Philadelphia",
     stock:1.14,
     unit:"kg",
     min:.76,
     price:157.89,
+    presentation:"Caja 190 g",
+    presentationPrice:30,
     barcode:""
-},
+  },
 
-{
+  {
     id:"levadura",
     name:"Levadura",
     stock:0,
     unit:"kg",
     min:.4,
     price:50,
+    presentation:"Bolsa 400 g",
+    presentationPrice:20,
     barcode:""
-},
+  },
 
-{
+  {
     id:"leche",
     name:"Leche",
     stock:5,
     unit:"L",
     min:3,
     price:24,
+    presentation:"Botella 1 L",
+    presentationPrice:24,
     barcode:""
-},
+  },
 
-{
+  {
     id:"crema",
     name:"Crema para batir",
     stock:1,
     unit:"L",
     min:1.5,
     price:120,
+    presentation:"Envase 750 ml",
+    presentationPrice:90,
     barcode:""
-},
+  },
 
-{
+  {
     id:"mantequilla",
     name:"Mantequilla",
     stock:8,
     unit:"kg",
     min:5,
     price:127.78,
+    presentation:"Barra/envase 900 g",
+    presentationPrice:115,
     barcode:""
-},
+  },
 
-{
+  {
     id:"harina",
     name:"Harina",
     stock:6,
     unit:"kg",
     min:6,
     price:20.20,
+    presentation:"Costal 20 kg",
+    presentationPrice:404,
     barcode:""
-},
+  },
 
-{
+  {
     id:"agua",
     name:"Agua",
     stock:10,
     unit:"L",
     min:5,
-    price:1.58,
+    price:30/19,
+    presentation:"Garrafón 19 L",
+    presentationPrice:30,
     barcode:""
-},
+  },
 
-{
+  {
     id:"sal",
     name:"Sal",
     stock:.5,
     unit:"kg",
     min:.5,
     price:25,
+    presentation:"Bolsa 1 kg",
+    presentationPrice:25,
     barcode:""
-}
+  }
 
 ];
 
 
 /* =========================================================
-   LOCAL STORAGE
+   CROISSANT
 ========================================================= */
 
-let inventory =
-JSON.parse(localStorage.getItem("toritoInventory")) ||
-defaultInventory;
+const DEFAULT_RECIPES = [
 
-let productionLog =
-JSON.parse(localStorage.getItem("toritoProduction")) ||
-[];
+  {
+    id:"croissant",
+    name:"Croissant",
+    yield:10,
+    yieldUnit:"piezas",
+    procedure:
+`1. Mezclar harina, azúcar, leche, levadura, agua y sal.
 
-let selectedStockItem = null;
-let selectedStockMode = null;
+2. Agregar la mantequilla de la masa.
 
-let selectedScanItem = null;
+3. Amasar hasta desarrollar la masa.
 
-let mediaStream = null;
-let scannerTimer = null;
+4. Refrigerar.
 
-let barcodeDetector = null;
+5. Laminar con la mantequilla de laminación.
+
+6. Dar los pliegues correspondientes.
+
+7. Estirar y cortar.
+
+8. Formar los croissants.
+
+9. Fermentar.
+
+10. Hornear hasta obtener un color dorado y una buena estructura.`,
+    ingredients:[
+      {ingredientId:"harina",quantity:.500},
+      {ingredientId:"azucar",quantity:.060},
+      {ingredientId:"leche",quantity:.200},
+      {ingredientId:"levadura",quantity:.018},
+      {ingredientId:"agua",quantity:.050},
+      {ingredientId:"sal",quantity:.010},
+      {ingredientId:"mantequilla",quantity:.330}
+    ],
+    createdAt:Date.now()
+  }
+
+];
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+let inventory = loadInventory();
+let recipes = loadRecipes();
+let productionHistory = loadProductionHistory();
+let movements = loadMovements();
+
+function loadInventory(){
+
+  try{
+
+    const saved = localStorage.getItem("toritoInventory");
+
+    if(saved){
+
+      const data = JSON.parse(saved);
+
+      return data.map(normalizeIngredient);
+
+    }
+
+  }catch(e){
+
+    console.error(e);
+
+  }
+
+  const data = DEFAULT_INVENTORY.map(normalizeIngredient);
+
+  localStorage.setItem(
+    "toritoInventory",
+    JSON.stringify(data)
+  );
+
+  return data;
+}
+
+
+function normalizeIngredient(item){
+
+  return {
+
+    id:item.id || createId(),
+
+    name:item.name || "Ingrediente",
+
+    stock:Number(item.stock)||0,
+
+    unit:item.unit || "kg",
+
+    min:Number(item.min)||0,
+
+    price:Number(item.price)||0,
+
+    presentation:item.presentation || "",
+
+    presentationPrice:Number(item.presentationPrice)||0,
+
+    barcode:item.barcode || ""
+
+  };
+
+}
+
+
+function loadRecipes(){
+
+  try{
+
+    const saved = localStorage.getItem("toritoRecipes");
+
+    if(saved){
+
+      const data = JSON.parse(saved);
+
+      return data.map(normalizeRecipe);
+
+    }
+
+  }catch(e){
+
+    console.error(e);
+
+  }
+
+  const data = DEFAULT_RECIPES.map(normalizeRecipe);
+
+  localStorage.setItem(
+    "toritoRecipes",
+    JSON.stringify(data)
+  );
+
+  return data;
+}
+
+
+function normalizeRecipe(recipe){
+
+  return {
+
+    id:recipe.id || createId(),
+
+    name:recipe.name || "Receta",
+
+    yield:Number(recipe.yield)||1,
+
+    yieldUnit:recipe.yieldUnit || "piezas",
+
+    procedure:recipe.procedure || "",
+
+    ingredients:Array.isArray(recipe.ingredients)
+      ? recipe.ingredients.map(x=>({
+          ingredientId:x.ingredientId,
+          quantity:Number(x.quantity)||0
+        }))
+      : [],
+
+    createdAt:recipe.createdAt || Date.now()
+
+  };
+
+}
+
+
+function loadProductionHistory(){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem("toritoProduction") || "[]"
+    );
+
+  }catch(e){
+
+    return [];
+
+  }
+
+}
+
+
+function loadMovements(){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem("toritoMovements") || "[]"
+    );
+
+  }catch(e){
+
+    return [];
+
+  }
+
+}
+
+
+function saveAll(){
+
+  localStorage.setItem(
+    "toritoInventory",
+    JSON.stringify(inventory)
+  );
+
+  localStorage.setItem(
+    "toritoRecipes",
+    JSON.stringify(recipes)
+  );
+
+  localStorage.setItem(
+    "toritoProduction",
+    JSON.stringify(productionHistory)
+  );
+
+  localStorage.setItem(
+    "toritoMovements",
+    JSON.stringify(movements)
+  );
+
+}
+
+
+/* =========================================================
+   UTILIDADES
+========================================================= */
+
+function createId(){
+
+  return Date.now().toString(36)
+    + Math.random().toString(36).slice(2,8);
+
+}
+
+
+function money(value){
+
+  return "$" + Number(value||0).toLocaleString(
+    "es-MX",
+    {
+      minimumFractionDigits:2,
+      maximumFractionDigits:2
+    }
+  );
+
+}
+
+
+function formatNumber(value){
+
+  return Number(value||0).toLocaleString(
+    "es-MX",
+    {
+      maximumFractionDigits:3
+    }
+  );
+
+}
+
+
+function getIngredient(id){
+
+  return inventory.find(x=>x.id===id);
+
+}
+
+
+function getRecipe(id){
+
+  return recipes.find(x=>x.id===id);
+
+}
+
+
+function recipeCost(recipe){
+
+  if(!recipe) return 0;
+
+  return recipe.ingredients.reduce(
+    (total,row)=>{
+
+      const ing=getIngredient(row.ingredientId);
+
+      if(!ing) return total;
+
+      return total + (
+        Number(row.quantity||0) *
+        Number(ing.price||0)
+      );
+
+    },
+    0
+  );
+
+}
+
+
+function showToast(message){
+
+  const el=document.getElementById("toast");
+
+  el.textContent=message;
+
+  el.classList.add("show");
+
+  setTimeout(()=>{
+    el.classList.remove("show");
+  },2500);
+
+}
+
+
+function closeModal(id){
+
+  document.getElementById(id).classList.remove("show");
+
+}
+
+
+function openModal(id){
+
+  document.getElementById(id).classList.add("show");
+
+}
 
 
 /* =========================================================
@@ -1232,92 +1479,107 @@ let barcodeDetector = null;
 
 function showScreen(screen){
 
-    document.querySelectorAll(".screen")
-    .forEach(s => s.classList.remove("active"));
+  stopScanner();
 
-    document.getElementById(screen)
+  document.querySelectorAll(".screen")
+    .forEach(x=>x.classList.remove("active"));
+
+  document.getElementById(screen)
     .classList.add("active");
 
-    document.querySelectorAll(".nav-btn")
-    .forEach(btn => {
-
-        btn.classList.toggle(
-            "active",
-            btn.dataset.screen === screen
-        );
-
+  document.querySelectorAll(".nav-btn")
+    .forEach(btn=>{
+      btn.classList.toggle(
+        "active",
+        btn.dataset.screen===screen
+      );
     });
 
-    if(screen !== "escanear"){
-        stopScanner();
-    }
+  if(screen==="inicio") renderDashboard();
 
-    updateDashboard();
+  if(screen==="inventario") renderInventory();
 
-    if(screen === "inventario"){
-        renderInventory();
-    }
+  if(screen==="recetas") renderRecipes();
 
-    if(screen === "compras"){
-        renderPurchases();
-    }
+  if(screen==="produccion"){
+    renderProductionSelect();
+    renderProductionHistory();
+  }
 
-    if(screen === "produccion"){
-        renderProductionHistory();
-    }
+  if(screen==="compras") renderPurchases();
 
-}
-
-
-/* =========================================================
-   GUARDAR
-========================================================= */
-
-function saveData(){
-
-    localStorage.setItem(
-        "toritoInventory",
-        JSON.stringify(inventory)
-    );
-
-    localStorage.setItem(
-        "toritoProduction",
-        JSON.stringify(productionLog)
-    );
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
 
 /* =========================================================
-   ESTADOS
+   DASHBOARD
 ========================================================= */
 
-function statusOf(item){
+function renderDashboard(){
 
-    if(item.stock <= 0){
-        return "empty";
-    }
+  const low=inventory.filter(
+    x=>x.stock<=x.min
+  );
 
-    if(item.stock <= item.min){
-        return "low";
-    }
+  const value=inventory.reduce(
+    (sum,x)=>sum+x.stock*x.price,
+    0
+  );
 
-    return "ok";
-}
+  document.getElementById("statIngredientes")
+    .textContent=inventory.length;
 
-function statusText(item){
+  document.getElementById("statComprar")
+    .textContent=low.length;
 
-    const status = statusOf(item);
+  document.getElementById("statRecetas")
+    .textContent=recipes.length;
 
-    if(status === "empty"){
-        return "Agotado";
-    }
+  document.getElementById("statProduccion")
+    .textContent=productionHistory.length;
 
-    if(status === "low"){
-        return "Reponer";
-    }
+  document.getElementById("statValor")
+    .textContent=money(value);
 
-    return "Disponible";
+  const alertas=document.getElementById("inicioAlertas");
+
+  if(!low.length){
+
+    alertas.innerHTML=
+      `<div class="empty">Todo el inventario está por encima del mínimo.</div>`;
+
+    return;
+
+  }
+
+  alertas.innerHTML=low.map(x=>`
+
+    <div class="item" style="padding:8px 0">
+
+      <div class="item-left">
+
+        <div class="item-name">${escapeHtml(x.name)}</div>
+
+        <div class="small">
+          ${formatNumber(x.stock)} ${x.unit}
+          · mínimo ${formatNumber(x.min)} ${x.unit}
+        </div>
+
+      </div>
+
+      <span class="badge ${x.stock===0?'low':'warning'}">
+        ${x.stock===0?'Agotado':'Reponer'}
+      </span>
+
+    </div>
+
+  `).join("");
+
 }
 
 
@@ -1327,746 +1589,865 @@ function statusText(item){
 
 function renderInventory(){
 
-    const container =
-        document.getElementById("inventoryList");
+  const search=(
+    document.getElementById("inventorySearch")?.value || ""
+  ).toLowerCase();
 
-    const search =
-        document.getElementById("searchInventory")
-        .value
-        .toLowerCase()
-        .trim();
+  const list=inventory.filter(x=>
+    x.name.toLowerCase().includes(search) ||
+    String(x.barcode||"").includes(search)
+  );
 
-    const filtered =
-        inventory.filter(item =>
-            item.name.toLowerCase().includes(search) ||
-            (item.barcode || "").includes(search)
-        );
+  const container=document.getElementById("inventoryList");
 
-    if(!filtered.length){
+  if(!list.length){
 
-        container.innerHTML = `
-            <div class="card">
-                No se encontraron ingredientes.
-            </div>
-        `;
+    container.innerHTML=
+      `<div class="empty">No se encontraron ingredientes.</div>`;
 
-        return;
+    return;
+
+  }
+
+  container.innerHTML=list.map(x=>{
+
+    let status="ok";
+    let text="Disponible";
+
+    if(x.stock<=x.min){
+
+      status=x.stock===0?"low":"warning";
+
+      text=x.stock===0?"Agotado":"Reponer";
+
     }
 
-    container.innerHTML =
-        filtered.map(item => {
+    return `
 
-            const status = statusOf(item);
+      <div class="card">
 
-            return `
+        <div class="item">
 
-            <div class="inventory-item">
+          <div class="item-left">
 
-                <div class="item-top">
-
-                    <div>
-
-                        <div class="item-name">
-                            ${escapeHtml(item.name)}
-                        </div>
-
-                        ${
-                            item.barcode
-                            ?
-                            `<div class="item-code">
-                                Código: ${escapeHtml(item.barcode)}
-                            </div>`
-                            :
-                            `<div class="item-code">
-                                Sin código de barras
-                            </div>`
-                        }
-
-                    </div>
-
-                    <div class="stock ${status !== "ok" ? "low" : ""}">
-                        ${formatNumber(item.stock)} ${item.unit}
-                    </div>
-
-                </div>
-
-                <div class="stock-row">
-                    Mínimo:
-                    ${formatNumber(item.min)} ${item.unit}
-                </div>
-
-                <span class="badge ${status}">
-                    ${statusText(item)}
-                </span>
-
-                <div class="item-actions">
-
-                    <button
-                        class="secondary"
-                        onclick="changeStock('${item.id}','in')">
-                        ➕ Entrada
-                    </button>
-
-                    <button
-                        class="secondary"
-                        onclick="changeStock('${item.id}','out')">
-                        ➖ Salida
-                    </button>
-
-                    <button
-                        class="secondary"
-                        onclick="editStock('${item.id}')">
-                        ✏️
-                    </button>
-
-                </div>
-
+            <div class="item-name">
+              ${escapeHtml(x.name)}
             </div>
 
-            `;
+            <div class="small">
+              ${escapeHtml(x.presentation || "Sin presentación")}
+            </div>
 
-        }).join("");
+            <div class="small">
+              ${x.barcode ? "Código: "+escapeHtml(x.barcode) : "Sin código de barras"}
+            </div>
 
-}
+          </div>
 
+          <div style="text-align:right">
 
-/* =========================================================
-   STOCK
-========================================================= */
+            <div class="stock ${status}">
+              ${formatNumber(x.stock)} ${x.unit}
+            </div>
 
-function changeStock(id, mode){
+            <div class="small">
+              mínimo ${formatNumber(x.min)}
+            </div>
 
-    selectedStockItem =
-        inventory.find(item => item.id === id);
+          </div>
 
-    selectedStockMode = mode;
+        </div>
 
-    document.getElementById("stockModalTitle")
-        .textContent =
-        mode === "in"
-        ? `Entrada — ${selectedStockItem.name}`
-        : `Salida — ${selectedStockItem.name}`;
+        <div class="divider"></div>
 
-    document.getElementById("stockAmount").value = "";
+        <div class="item">
 
-    document.getElementById("stockModal")
-        .classList.add("active");
+          <div>
 
-}
+            <div class="price">
+              ${money(x.price)}/${x.unit}
+            </div>
 
-function confirmStockChange(){
+            <span class="badge ${status}">
+              ${text}
+            </span>
 
-    const amount =
-        parseFloat(
-            document.getElementById("stockAmount").value
-        );
+          </div>
 
-    if(!amount || amount <= 0){
-        showToast("Escribe una cantidad válida.");
-        return;
-    }
+          <div class="actions" style="margin-top:0">
 
-    if(selectedStockMode === "in"){
+            <button
+              class="btn small-btn"
+              onclick="openMovementModal('${x.id}')">
+              ±
+            </button>
 
-        selectedStockItem.stock += amount;
+            <button
+              class="btn secondary small-btn"
+              onclick="editIngredient('${x.id}')">
+              Editar
+            </button>
 
-        showToast("Entrada registrada.");
+            <button
+              class="btn danger small-btn"
+              onclick="deleteIngredient('${x.id}')">
+              Eliminar
+            </button>
 
-    }else{
+          </div>
 
-        if(amount > selectedStockItem.stock){
+        </div>
 
-            showToast("No hay suficiente stock.");
+      </div>
 
-            return;
-        }
+    `;
 
-        selectedStockItem.stock -= amount;
-
-        showToast("Salida registrada.");
-    }
-
-    saveData();
-    closeModal();
-    renderInventory();
-    updateDashboard();
-
-}
-
-function editStock(id){
-
-    const item =
-        inventory.find(x => x.id === id);
-
-    const newValue =
-        prompt(
-            `Nuevo stock de ${item.name}`,
-            item.stock
-        );
-
-    if(newValue === null){
-        return;
-    }
-
-    const value =
-        parseFloat(newValue);
-
-    if(isNaN(value) || value < 0){
-        showToast("Cantidad inválida.");
-        return;
-    }
-
-    item.stock = value;
-
-    saveData();
-    renderInventory();
-    updateDashboard();
-
-    showToast("Stock actualizado.");
+  }).join("");
 
 }
 
 
-/* =========================================================
-   AGREGAR INGREDIENTE
-========================================================= */
+function openIngredientModal(id=null){
 
-function openAddItem(){
+  document.getElementById("ingredientModalTitle")
+    .textContent=id
+      ? "Editar ingrediente"
+      : "Nuevo ingrediente";
 
-    document.getElementById("newName").value = "";
-    document.getElementById("newStock").value = "";
-    document.getElementById("newMin").value = "";
-    document.getElementById("newBarcode").value = "";
-    document.getElementById("newPrice").value = "";
+  document.getElementById("ingredientId").value=id || "";
 
-    document.getElementById("addModal")
-        .classList.add("active");
+  if(id){
 
-}
+    const x=getIngredient(id);
 
-function closeAddModal(){
+    if(!x) return;
 
-    document.getElementById("addModal")
-        .classList.remove("active");
+    document.getElementById("ingredientName").value=x.name;
 
-}
+    document.getElementById("ingredientStock").value=x.stock;
 
-function addItem(){
+    document.getElementById("ingredientUnit").value=x.unit;
 
-    const name =
-        document.getElementById("newName")
-        .value.trim();
+    document.getElementById("ingredientMin").value=x.min;
 
-    const unit =
-        document.getElementById("newUnit")
-        .value;
+    document.getElementById("ingredientPrice").value=x.price;
 
-    const stock =
-        parseFloat(
-            document.getElementById("newStock").value
-        ) || 0;
+    document.getElementById("ingredientPresentation").value=x.presentation;
 
-    const min =
-        parseFloat(
-            document.getElementById("newMin").value
-        ) || 0;
+    document.getElementById("ingredientPresentationPrice").value=x.presentationPrice;
 
-    const barcode =
-        document.getElementById("newBarcode")
-        .value.trim();
+    document.getElementById("ingredientBarcode").value=x.barcode;
 
-    const price =
-        parseFloat(
-            document.getElementById("newPrice").value
-        ) || 0;
+  }else{
 
-    if(!name){
-
-        showToast("Escribe el nombre.");
-
-        return;
-    }
-
-    if(barcode){
-
-        const exists =
-            inventory.some(
-                item => item.barcode === barcode
-            );
-
-        if(exists){
-
-            showToast(
-                "Ese código ya está registrado."
-            );
-
-            return;
-        }
-    }
-
-    inventory.push({
-
-        id:
-            slugify(name) +
-            "-" +
-            Date.now(),
-
-        name,
-        stock,
-        unit,
-        min,
-        price,
-        barcode
-
+    [
+      "ingredientName",
+      "ingredientStock",
+      "ingredientMin",
+      "ingredientPrice",
+      "ingredientPresentation",
+      "ingredientPresentationPrice",
+      "ingredientBarcode"
+    ].forEach(id=>{
+      document.getElementById(id).value="";
     });
 
-    saveData();
+    document.getElementById("ingredientUnit").value="kg";
 
-    closeAddModal();
+  }
 
-    renderInventory();
-
-    updateDashboard();
-
-    showToast("Ingrediente agregado.");
+  openModal("ingredientModal");
 
 }
 
 
-/* =========================================================
-   ESCÁNER
-========================================================= */
+function editIngredient(id){
 
-async function startScanner(){
-
-    const status =
-        document.getElementById("scannerStatus");
-
-    if(!navigator.mediaDevices ||
-       !navigator.mediaDevices.getUserMedia){
-
-        status.textContent =
-            "Tu navegador no permite usar la cámara.";
-
-        showToast(
-            "No se puede acceder a la cámara."
-        );
-
-        return;
-    }
-
-    try{
-
-        stopScanner();
-
-        mediaStream =
-            await navigator.mediaDevices.getUserMedia({
-
-                video:{
-                    facingMode:{
-                        ideal:"environment"
-                    }
-                },
-
-                audio:false
-
-            });
-
-        const video =
-            document.getElementById("video");
-
-        video.srcObject = mediaStream;
-
-        await video.play();
-
-        status.textContent =
-            "📷 Cámara activa. Apunta al código.";
-
-        if("BarcodeDetector" in window){
-
-            try{
-
-                barcodeDetector =
-                    new BarcodeDetector({
-
-                        formats:[
-                            "ean_13",
-                            "ean_8",
-                            "upc_a",
-                            "upc_e",
-                            "code_128",
-                            "code_39",
-                            "itf",
-                            "codabar"
-                        ]
-
-                    });
-
-                scanBarcodeLoop();
-
-            }catch(error){
-
-                barcodeDetector = null;
-
-                status.textContent =
-                    "Cámara activa. Usa el campo manual si no detecta el código.";
-
-            }
-
-        }else{
-
-            status.textContent =
-                "Cámara activa. Introduce el código manualmente.";
-
-        }
-
-    }catch(error){
-
-        console.error(error);
-
-        status.textContent =
-            "No se pudo abrir la cámara.";
-
-        showToast(
-            "Debes permitir el acceso a la cámara."
-        );
-
-    }
+  openIngredientModal(id);
 
 }
 
 
-async function scanBarcodeLoop(){
+function saveIngredient(){
 
-    if(!mediaStream ||
-       !barcodeDetector){
+  const id=document.getElementById("ingredientId").value;
 
-        return;
-    }
+  const name=document.getElementById("ingredientName").value.trim();
 
-    const video =
-        document.getElementById("video");
+  if(!name){
 
-    try{
+    showToast("Escribe el nombre del ingrediente.");
 
-        if(video.readyState >= 2){
+    return;
 
-            const codes =
-                await barcodeDetector.detect(video);
+  }
 
-            if(codes.length){
+  const data={
 
-                const value =
-                    codes[0].rawValue;
+    id:id || createId(),
 
-                if(value){
+    name,
 
-                    processBarcode(value);
+    stock:Number(
+      document.getElementById("ingredientStock").value
+    )||0,
 
-                    stopScanner();
+    unit:document.getElementById("ingredientUnit").value,
 
-                    return;
-                }
+    min:Number(
+      document.getElementById("ingredientMin").value
+    )||0,
 
-            }
+    price:Number(
+      document.getElementById("ingredientPrice").value
+    )||0,
 
-        }
+    presentation:
+      document.getElementById("ingredientPresentation").value.trim(),
 
-    }catch(error){
+    presentationPrice:Number(
+      document.getElementById("ingredientPresentationPrice").value
+    )||0,
 
-        console.log(
-            "Error leyendo código:",
-            error
-        );
+    barcode:
+      document.getElementById("ingredientBarcode").value.trim()
 
-    }
+  };
 
-    scannerTimer =
-        setTimeout(
-            scanBarcodeLoop,
-            300
-        );
+  if(id){
 
-}
+    const index=inventory.findIndex(x=>x.id===id);
 
+    if(index>=0) inventory[index]=data;
 
-function stopScanner(){
+  }else{
 
-    if(scannerTimer){
+    inventory.push(data);
 
-        clearTimeout(scannerTimer);
-        scannerTimer = null;
+  }
 
-    }
+  saveAll();
 
-    if(mediaStream){
+  closeModal("ingredientModal");
 
-        mediaStream
-        .getTracks()
-        .forEach(track => track.stop());
+  renderInventory();
 
-        mediaStream = null;
+  renderDashboard();
 
-    }
+  renderRecipes();
 
-    const video =
-        document.getElementById("video");
-
-    if(video){
-
-        video.srcObject = null;
-
-    }
-
-    const status =
-        document.getElementById("scannerStatus");
-
-    if(status){
-
-        status.textContent =
-            "Cámara apagada";
-
-    }
+  showToast(
+    id
+      ? "Ingrediente actualizado."
+      : "Ingrediente agregado."
+  );
 
 }
 
 
-/* =========================================================
-   PROCESAR CÓDIGO
-========================================================= */
+function deleteIngredient(id){
 
-function processBarcode(rawCode){
+  const x=getIngredient(id);
 
-    const code =
-        String(rawCode || "")
-        .trim();
+  if(!x) return;
 
-    if(!code){
+  const used=recipes.some(recipe=>
+    recipe.ingredients.some(row=>
+      row.ingredientId===id
+    )
+  );
 
-        showToast(
-            "Escribe o escanea un código."
-        );
+  if(used){
 
-        return;
-    }
-
-    const item =
-        inventory.find(
-            product =>
-                String(product.barcode || "") === code
-        );
-
-    if(item){
-
-        selectedScanItem = item;
-
-        document.getElementById(
-            "scanProductTitle"
-        ).textContent =
-            item.name;
-
-        document.getElementById(
-            "scanProductInfo"
-        ).innerHTML = `
-
-            <strong>Código:</strong>
-            ${escapeHtml(code)}
-            <br><br>
-
-            <strong>Stock:</strong>
-            ${formatNumber(item.stock)}
-            ${item.unit}
-
-            <br>
-
-            <strong>Mínimo:</strong>
-            ${formatNumber(item.min)}
-            ${item.unit}
-
-        `;
-
-        document.getElementById(
-            "scanProductModal"
-        ).classList.add("active");
-
-        return;
-    }
-
-    document.getElementById(
-        "unknownBarcode"
-    ).value = code;
-
-    document.getElementById(
-        "unknownName"
-    ).value = "";
-
-    document.getElementById(
-        "unknownStock"
-    ).value = "0";
-
-    document.getElementById(
-        "unknownMin"
-    ).value = "0";
-
-    document.getElementById(
-        "unknownPrice"
-    ).value = "";
-
-    document.getElementById(
-        "newBarcodeModal"
-    ).classList.add("active");
-
-}
-
-
-/* =========================================================
-   PRODUCTO ESCANEADO
-========================================================= */
-
-function scanEntry(){
-
-    if(!selectedScanItem){
-        return;
-    }
-
-    closeScanProductModal();
-
-    changeStock(
-        selectedScanItem.id,
-        "in"
+    alert(
+      "No puedes eliminar este ingrediente porque está utilizado en una receta."
     );
 
-}
+    return;
 
+  }
 
-function scanExit(){
+  if(!confirm(
+    `¿Eliminar "${x.name}" del inventario?`
+  )) return;
 
-    if(!selectedScanItem){
-        return;
-    }
+  inventory=inventory.filter(x=>x.id!==id);
 
-    closeScanProductModal();
+  saveAll();
 
-    changeStock(
-        selectedScanItem.id,
-        "out"
-    );
+  renderInventory();
 
-}
+  renderDashboard();
 
-
-function closeScanProductModal(){
-
-    document.getElementById(
-        "scanProductModal"
-    ).classList.remove("active");
-
-    selectedScanItem = null;
+  showToast("Ingrediente eliminado.");
 
 }
 
 
 /* =========================================================
-   NUEVO CÓDIGO
+   MOVIMIENTOS
 ========================================================= */
 
-function registerUnknownBarcode(){
+function openMovementModal(id){
 
-    const barcode =
-        document.getElementById(
-            "unknownBarcode"
-        ).value.trim();
+  const x=getIngredient(id);
 
-    const name =
-        document.getElementById(
-            "unknownName"
-        ).value.trim();
+  if(!x) return;
 
-    const unit =
-        document.getElementById(
-            "unknownUnit"
-        ).value;
+  document.getElementById("movementIngredientId").value=id;
 
-    const stock =
-        parseFloat(
-            document.getElementById(
-                "unknownStock"
-            ).value
-        ) || 0;
+  document.getElementById("movementIngredientName")
+    .textContent=
+      `${x.name} · ${formatNumber(x.stock)} ${x.unit}`;
 
-    const min =
-        parseFloat(
-            document.getElementById(
-                "unknownMin"
-            ).value
-        ) || 0;
+  document.getElementById("movementQuantity").value="";
 
-    const price =
-        parseFloat(
-            document.getElementById(
-                "unknownPrice"
-            ).value
-        ) || 0;
+  document.getElementById("movementNote").value="";
 
-    if(!name){
+  document.getElementById("movementType").value="entrada";
 
-        showToast(
-            "Escribe el nombre del ingrediente."
-        );
-
-        return;
-    }
-
-    if(
-        inventory.some(
-            item =>
-                String(item.barcode || "") === barcode
-        )
-    ){
-
-        showToast(
-            "Ese código ya existe."
-        );
-
-        return;
-    }
-
-    inventory.push({
-
-        id:
-            slugify(name) +
-            "-" +
-            Date.now(),
-
-        name,
-        stock,
-        unit,
-        min,
-        price,
-        barcode
-
-    });
-
-    saveData();
-
-    closeNewBarcodeModal();
-
-    renderInventory();
-
-    updateDashboard();
-
-    showToast(
-        `${name} registrado correctamente.`
-    );
+  openModal("movementModal");
 
 }
 
 
-function closeNewBarcodeModal(){
+function saveMovement(){
 
-    document.getElementById(
-        "newBarcodeModal"
-    ).classList.remove("active");
+  const id=document.getElementById(
+    "movementIngredientId"
+  ).value;
+
+  const x=getIngredient(id);
+
+  const quantity=Number(
+    document.getElementById("movementQuantity").value
+  );
+
+  const type=document.getElementById(
+    "movementType"
+  ).value;
+
+  if(!x || quantity<=0){
+
+    showToast("Introduce una cantidad válida.");
+
+    return;
+
+  }
+
+  if(
+    type==="salida" &&
+    quantity>x.stock
+  ){
+
+    showToast("No hay suficiente inventario.");
+
+    return;
+
+  }
+
+  if(type==="entrada"){
+
+    x.stock+=quantity;
+
+  }else{
+
+    x.stock-=quantity;
+
+  }
+
+  movements.unshift({
+
+    id:createId(),
+
+    ingredientId:id,
+
+    type,
+
+    quantity,
+
+    note:
+      document.getElementById("movementNote").value.trim(),
+
+    date:new Date().toISOString()
+
+  });
+
+  saveAll();
+
+  closeModal("movementModal");
+
+  renderInventory();
+
+  renderDashboard();
+
+  renderPurchases();
+
+  showToast(
+    type==="entrada"
+      ? "Entrada registrada."
+      : "Salida registrada."
+  );
+
+}
+
+
+/* =========================================================
+   RECETAS
+========================================================= */
+
+function renderRecipes(){
+
+  const container=document.getElementById("recipeList");
+
+  if(!recipes.length){
+
+    container.innerHTML=
+      `<div class="empty">Todavía no tienes recetas.</div>`;
+
+    return;
+
+  }
+
+  container.innerHTML=recipes.map(recipe=>{
+
+    const cost=recipeCost(recipe);
+
+    const unitCost=
+      recipe.yield>0
+        ? cost/recipe.yield
+        : 0;
+
+    return `
+
+      <div class="card">
+
+        <div class="item">
+
+          <div>
+
+            <div class="item-name">
+              ${escapeHtml(recipe.name)}
+            </div>
+
+            <div class="small">
+              Rinde ${formatNumber(recipe.yield)}
+              ${escapeHtml(recipe.yieldUnit)}
+            </div>
+
+          </div>
+
+          <div style="text-align:right">
+
+            <div class="price">
+              ${money(cost)}
+            </div>
+
+            <div class="small">
+              ${money(unitCost)} / unidad
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="small">
+          ${recipe.ingredients.length} ingrediente(s)
+        </div>
+
+        <div class="actions">
+
+          <button
+            class="btn small-btn"
+            onclick="editRecipe('${recipe.id}')">
+            Editar
+          </button>
+
+          <button
+            class="btn secondary small-btn"
+            onclick="duplicateRecipe('${recipe.id}')">
+            Duplicar
+          </button>
+
+          <button
+            class="btn warning small-btn"
+            onclick="useRecipeForProduction('${recipe.id}')">
+            Producir
+          </button>
+
+          <button
+            class="btn danger small-btn"
+            onclick="deleteRecipe('${recipe.id}')">
+            Eliminar
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  }).join("");
+
+}
+
+
+function openRecipeModal(id=null){
+
+  document.getElementById("recipeModalTitle")
+    .textContent=id
+      ? "Editar receta"
+      : "Nueva receta";
+
+  document.getElementById("recipeId").value=id || "";
+
+  const container=
+    document.getElementById("recipeIngredients");
+
+  container.innerHTML="";
+
+  if(id){
+
+    const recipe=getRecipe(id);
+
+    if(!recipe) return;
+
+    document.getElementById("recipeName").value=recipe.name;
+
+    document.getElementById("recipeYield").value=recipe.yield;
+
+    document.getElementById("recipeYieldUnit").value=recipe.yieldUnit;
+
+    document.getElementById("recipeProcedure").value=recipe.procedure;
+
+    recipe.ingredients.forEach(row=>
+      addRecipeIngredientRow(
+        row.ingredientId,
+        row.quantity
+      )
+    );
+
+  }else{
+
+    document.getElementById("recipeName").value="";
+
+    document.getElementById("recipeYield").value="1";
+
+    document.getElementById("recipeYieldUnit").value="piezas";
+
+    document.getElementById("recipeProcedure").value="";
+
+  }
+
+  updateRecipeCostPreview();
+
+  openModal("recipeModal");
+
+}
+
+
+function addRecipeIngredientRow(
+  ingredientId="",
+  quantity=""
+){
+
+  const container=
+    document.getElementById("recipeIngredients");
+
+  const row=document.createElement("div");
+
+  row.className="recipe-row";
+
+  const options=inventory.map(x=>`
+
+    <option
+      value="${x.id}"
+      ${x.id===ingredientId?"selected":""}>
+      ${escapeHtml(x.name)} (${x.unit})
+    </option>
+
+  `).join("");
+
+  row.innerHTML=`
+
+    <div class="recipe-row-grid">
+
+      <div>
+
+        <label>Ingrediente</label>
+
+        <select class="recipe-ing" onchange="updateRecipeCostPreview()">
+
+          <option value="">Seleccionar...</option>
+
+          ${options}
+
+        </select>
+
+      </div>
+
+      <div>
+
+        <label>Cantidad</label>
+
+        <input
+          class="recipe-qty"
+          type="number"
+          min="0"
+          step="0.001"
+          value="${quantity}"
+          oninput="updateRecipeCostPreview()">
+
+      </div>
+
+      <button
+        class="remove-row"
+        onclick="this.closest('.recipe-row').remove(); updateRecipeCostPreview();">
+        ×
+      </button>
+
+    </div>
+
+  `;
+
+  container.appendChild(row);
+
+}
+
+
+function getRecipeFormIngredients(){
+
+  return Array.from(
+    document.querySelectorAll("#recipeIngredients .recipe-row")
+  ).map(row=>{
+
+    return {
+
+      ingredientId:
+        row.querySelector(".recipe-ing").value,
+
+      quantity:Number(
+        row.querySelector(".recipe-qty").value
+      )||0
+
+    };
+
+  }).filter(x=>
+    x.ingredientId &&
+    x.quantity>0
+  );
+
+}
+
+
+function updateRecipeCostPreview(){
+
+  const ingredients=getRecipeFormIngredients();
+
+  const cost=ingredients.reduce(
+    (total,row)=>{
+
+      const x=getIngredient(row.ingredientId);
+
+      return total+
+        (
+          row.quantity *
+          (x?.price || 0)
+        );
+
+    },
+    0
+  );
+
+  const yieldValue=
+    Number(
+      document.getElementById("recipeYield").value
+    )||1;
+
+  const unitCost=
+    yieldValue>0
+      ? cost/yieldValue
+      : 0;
+
+  document.getElementById("recipeCostPreview").innerHTML=`
+
+    <div class="cost-box">
+
+      <div class="small">
+        Costo estimado de ingredientes
+      </div>
+
+      <div class="cost-big">
+        ${money(cost)}
+      </div>
+
+      <div class="small">
+        Costo por unidad: ${money(unitCost)}
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+document.getElementById("recipeYield")
+  .addEventListener(
+    "input",
+    updateRecipeCostPreview
+  );
+
+
+function saveRecipe(){
+
+  const id=document.getElementById("recipeId").value;
+
+  const name=
+    document.getElementById("recipeName")
+      .value.trim();
+
+  const yieldValue=
+    Number(
+      document.getElementById("recipeYield").value
+    );
+
+  if(!name){
+
+    showToast("Escribe el nombre de la receta.");
+
+    return;
+
+  }
+
+  if(yieldValue<=0){
+
+    showToast("El rendimiento debe ser mayor a cero.");
+
+    return;
+
+  }
+
+  const ingredients=getRecipeFormIngredients();
+
+  if(!ingredients.length){
+
+    showToast("Agrega al menos un ingrediente.");
+
+    return;
+
+  }
+
+  const data={
+
+    id:id || createId(),
+
+    name,
+
+    yield:yieldValue,
+
+    yieldUnit:
+      document.getElementById("recipeYieldUnit")
+        .value.trim() || "piezas",
+
+    procedure:
+      document.getElementById("recipeProcedure")
+        .value.trim(),
+
+    ingredients,
+
+    createdAt:id
+      ? getRecipe(id)?.createdAt || Date.now()
+      : Date.now()
+
+  };
+
+  if(id){
+
+    const index=recipes.findIndex(x=>x.id===id);
+
+    if(index>=0) recipes[index]=data;
+
+  }else{
+
+    recipes.push(data);
+
+  }
+
+  saveAll();
+
+  closeModal("recipeModal");
+
+  renderRecipes();
+
+  renderProductionSelect();
+
+  showToast(
+    id
+      ? "Receta actualizada."
+      : "Receta creada."
+  );
+
+}
+
+
+function editRecipe(id){
+
+  openRecipeModal(id);
+
+}
+
+
+function duplicateRecipe(id){
+
+  const original=getRecipe(id);
+
+  if(!original) return;
+
+  const copy=JSON.parse(
+    JSON.stringify(original)
+  );
+
+  copy.id=createId();
+
+  copy.name=original.name+" copia";
+
+  copy.createdAt=Date.now();
+
+  recipes.push(copy);
+
+  saveAll();
+
+  renderRecipes();
+
+  renderProductionSelect();
+
+  showToast("Receta duplicada.");
+
+}
+
+
+function deleteRecipe(id){
+
+  const recipe=getRecipe(id);
+
+  if(!recipe) return;
+
+  if(!confirm(
+    `¿Eliminar la receta "${recipe.name}"?`
+  )) return;
+
+  recipes=recipes.filter(x=>x.id!==id);
+
+  saveAll();
+
+  renderRecipes();
+
+  renderProductionSelect();
+
+  showToast("Receta eliminada.");
 
 }
 
@@ -2075,167 +2456,332 @@ function closeNewBarcodeModal(){
    PRODUCCIÓN
 ========================================================= */
 
-const croissantRecipe = {
+function renderProductionSelect(){
 
-    harina:.500,
-    azucar:.060,
-    leche:.200,
-    levadura:.018,
-    agua:.050,
-    sal:.010,
-    mantequilla:.330
+  const select=
+    document.getElementById("productionRecipe");
 
-};
+  const current=select.value;
+
+  select.innerHTML=`
+
+    <option value="">
+      Selecciona una receta...
+    </option>
+
+    ${recipes.map(recipe=>`
+
+      <option value="${recipe.id}">
+        ${escapeHtml(recipe.name)}
+      </option>
+
+    `).join("")}
+
+  `;
+
+  if(recipes.some(x=>x.id===current)){
+
+    select.value=current;
+
+  }
+
+  updateProductionInfo();
+
+}
 
 
-function produceCroissants(){
+function useRecipeForProduction(id){
 
-    const quantity =
-        parseInt(
-            document.getElementById(
-                "croissantQty"
-            ).value
-        );
+  showScreen("produccion");
 
-    if(!quantity || quantity <= 0){
+  document.getElementById("productionRecipe").value=id;
 
-        showToast(
-            "Escribe una cantidad válida."
-        );
+  updateProductionInfo();
 
-        return;
-    }
+}
 
-    const batches =
-        quantity / 10;
 
-    const deductions = {
+function updateProductionInfo(){
 
-        harina:
-            croissantRecipe.harina * batches,
+  const recipe=
+    getRecipe(
+      document.getElementById("productionRecipe").value
+    );
 
-        azucar:
-            croissantRecipe.azucar * batches,
+  const quantity=
+    Number(
+      document.getElementById("productionQuantity").value
+    )||0;
 
-        leche:
-            croissantRecipe.leche * batches,
+  const container=
+    document.getElementById("productionInfo");
 
-        levadura:
-            croissantRecipe.levadura * batches,
+  if(!recipe || quantity<=0){
 
-        agua:
-            croissantRecipe.agua * batches,
+    container.innerHTML="";
 
-        sal:
-            croissantRecipe.sal * batches,
+    return;
 
-        mantequilla:
-            croissantRecipe.mantequilla * batches
+  }
+
+  const factor=
+    quantity/recipe.yield;
+
+  const cost=
+    recipeCost(recipe)*factor;
+
+  let html=`
+
+    <div class="cost-box">
+
+      <div class="small">
+        Producción
+      </div>
+
+      <div class="cost-big">
+        ${formatNumber(quantity)}
+        ${escapeHtml(recipe.yieldUnit)}
+      </div>
+
+      <div class="small">
+        Costo estimado: ${money(cost)}
+      </div>
+
+    </div>
+
+    <div style="margin-top:12px">
+
+      <div class="card-title">
+        Ingredientes que se utilizarán
+      </div>
+
+  `;
+
+  recipe.ingredients.forEach(row=>{
+
+    const ing=getIngredient(row.ingredientId);
+
+    if(!ing) return;
+
+    const required=
+      row.quantity*factor;
+
+    const enough=
+      ing.stock>=required;
+
+    html+=`
+
+      <div class="item" style="padding:7px 0">
+
+        <div class="item-left">
+
+          <div class="item-name">
+            ${escapeHtml(ing.name)}
+          </div>
+
+          <div class="small">
+            Necesario:
+            ${formatNumber(required)} ${ing.unit}
+          </div>
+
+        </div>
+
+        <span class="badge ${enough?'ok':'low'}">
+          ${enough
+            ? `Disponible: ${formatNumber(ing.stock)}`
+            : "Insuficiente"}
+        </span>
+
+      </div>
+
+    `;
+
+  });
+
+  html+=`</div>`;
+
+  container.innerHTML=html;
+
+}
+
+
+function produceRecipe(){
+
+  const recipe=
+    getRecipe(
+      document.getElementById("productionRecipe").value
+    );
+
+  const quantity=
+    Number(
+      document.getElementById("productionQuantity").value
+    );
+
+  if(!recipe){
+
+    showToast("Selecciona una receta.");
+
+    return;
+
+  }
+
+  if(quantity<=0){
+
+    showToast("Introduce una cantidad válida.");
+
+    return;
+
+  }
+
+  const factor=
+    quantity/recipe.yield;
+
+  const requirements=recipe.ingredients.map(row=>{
+
+    const ing=getIngredient(row.ingredientId);
+
+    return {
+
+      ing,
+
+      required:row.quantity*factor
 
     };
 
-    for(const id in deductions){
+  });
 
-        const item =
-            inventory.find(
-                product => product.id === id
-            );
+  const insufficient=requirements.filter(x=>
+    !x.ing ||
+    x.ing.stock<x.required
+  );
 
-        if(!item){
+  if(insufficient.length){
 
-            showToast(
-                `No existe ${id} en inventario.`
-            );
-
-            return;
-        }
-
-        if(item.stock < deductions[id]){
-
-            showToast(
-                `No hay suficiente ${item.name}.`
-            );
-
-            return;
-        }
-
-    }
-
-    for(const id in deductions){
-
-        const item =
-            inventory.find(
-                product => product.id === id
-            );
-
-        item.stock -= deductions[id];
-
-    }
-
-    productionLog.unshift({
-
-        date:
-            new Date().toLocaleString("es-MX"),
-
-        product:"Croissants",
-
-        quantity
-
-    });
-
-    saveData();
-
-    renderInventory();
-
-    renderProductionHistory();
-
-    updateDashboard();
-
-    showToast(
-        `${quantity} croissants registrados.`
+    alert(
+      "No hay suficiente inventario para producir esta cantidad:\n\n"+
+      insufficient.map(x=>
+        x.ing
+          ? `${x.ing.name}: faltan ${formatNumber(x.required-x.ing.stock)} ${x.ing.unit}`
+          : "Ingrediente no encontrado"
+      ).join("\n")
     );
+
+    return;
+
+  }
+
+  requirements.forEach(x=>{
+
+    x.ing.stock-=x.required;
+
+  });
+
+  const cost=
+    recipeCost(recipe)*factor;
+
+  const record={
+
+    id:createId(),
+
+    recipeId:recipe.id,
+
+    recipeName:recipe.name,
+
+    quantity,
+
+    yieldUnit:recipe.yieldUnit,
+
+    cost,
+
+    date:new Date().toISOString(),
+
+    ingredients:requirements.map(x=>({
+
+      ingredientId:x.ing.id,
+
+      quantity:x.required
+
+    }))
+
+  };
+
+  productionHistory.unshift(record);
+
+  saveAll();
+
+  renderProductionHistory();
+
+  renderInventory();
+
+  renderDashboard();
+
+  renderPurchases();
+
+  updateProductionInfo();
+
+  showToast("Producción registrada y stock descontado.");
 
 }
 
 
 function renderProductionHistory(){
 
-    const container =
-        document.getElementById(
-            "productionHistory"
-        );
+  const container=
+    document.getElementById("productionHistory");
 
-    if(!productionLog.length){
+  if(!productionHistory.length){
 
-        container.innerHTML = `
-            <div class="card">
-                Todavía no hay producciones.
+    container.innerHTML=
+      `<div class="empty">No hay producciones registradas.</div>`;
+
+    return;
+
+  }
+
+  container.innerHTML=
+    productionHistory.slice(0,30).map(record=>{
+
+      const date=new Date(record.date);
+
+      return `
+
+        <div class="history-item">
+
+          <div class="item">
+
+            <div>
+
+              <div class="item-name">
+                ${escapeHtml(record.recipeName)}
+              </div>
+
+              <div class="small">
+                ${formatNumber(record.quantity)}
+                ${escapeHtml(record.yieldUnit)}
+                ·
+                ${date.toLocaleDateString("es-MX")}
+                ${date.toLocaleTimeString(
+                  "es-MX",
+                  {
+                    hour:"2-digit",
+                    minute:"2-digit"
+                  }
+                )}
+              </div>
+
             </div>
-        `;
 
-        return;
-    }
-
-    container.innerHTML =
-        productionLog
-        .slice(0,10)
-        .map(log => `
-
-            <div class="inventory-item">
-
-                <strong>
-                    ${escapeHtml(log.product)}
-                </strong>
-
-                <div class="stock-row">
-                    ${log.quantity} piezas
-                    · ${escapeHtml(log.date)}
-                </div>
-
+            <div class="price">
+              ${money(record.cost)}
             </div>
 
-        `)
-        .join("");
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
 
 }
 
@@ -2244,226 +2790,567 @@ function renderProductionHistory(){
    COMPRAS
 ========================================================= */
 
-function getLowStock(){
-
-    return inventory.filter(
-        item => item.stock <= item.min
-    );
-
-}
-
-
 function renderPurchases(){
 
-    const container =
-        document.getElementById(
-            "purchaseList"
-        );
+  const list=
+    inventory.filter(x=>x.stock<=x.min);
 
-    const low =
-        getLowStock();
+  const container=
+    document.getElementById("purchaseList");
 
-    if(!low.length){
+  if(!list.length){
 
-        container.innerHTML = `
-            <div class="card">
-                🎉 No hay ingredientes pendientes de compra.
-            </div>
-        `;
+    container.innerHTML=
+      `<div class="empty">No hay ingredientes por comprar.</div>`;
 
-        return;
-    }
+    return;
 
-    container.innerHTML =
-        low.map(item => `
+  }
 
-            <div class="purchase-item">
+  container.innerHTML=list.map(x=>{
 
-                <div>
-
-                    <strong>
-                        ${escapeHtml(item.name)}
-                    </strong>
-
-                    <span>
-                        Stock:
-                        ${formatNumber(item.stock)}
-                        ${item.unit}
-                        · Mínimo:
-                        ${formatNumber(item.min)}
-                        ${item.unit}
-                    </span>
-
-                </div>
-
-                <strong>
-                    ${item.stock <= 0 ? "URGENTE" : "Reponer"}
-                </strong>
-
-            </div>
-
-        `).join("");
-
-}
-
-
-/* =========================================================
-   DASHBOARD
-========================================================= */
-
-function updateDashboard(){
-
-    document.getElementById(
-        "dashboardItems"
-    ).textContent =
-        inventory.length;
-
-    document.getElementById(
-        "dashboardBuy"
-    ).textContent =
-        getLowStock().length;
-
-    const totalStock =
-        inventory.reduce(
-            (sum,item) =>
-                sum + Number(item.stock || 0),
-            0
-        );
-
-    document.getElementById(
-        "dashboardStock"
-    ).textContent =
-        formatNumber(totalStock);
-
-    document.getElementById(
-        "dashboardProduction"
-    ).textContent =
-        productionLog.length;
-
-}
-
-
-/* =========================================================
-   MODALES
-========================================================= */
-
-function closeModal(){
-
-    document.getElementById(
-        "stockModal"
-    ).classList.remove("active");
-
-    selectedStockItem = null;
-    selectedStockMode = null;
-
-}
-
-
-document.querySelectorAll(".modal")
-.forEach(modal => {
-
-    modal.addEventListener(
-        "click",
-        event => {
-
-            if(event.target === modal){
-
-                modal.classList.remove(
-                    "active"
-                );
-
-            }
-
-        }
+    const missing=Math.max(
+      0,
+      x.min-x.stock
     );
 
-});
+    return `
+
+      <div class="item" style="padding:10px 0;border-bottom:1px solid var(--borde)">
+
+        <div class="item-left">
+
+          <div class="item-name">
+            ${escapeHtml(x.name)}
+          </div>
+
+          <div class="small">
+            Actual:
+            ${formatNumber(x.stock)} ${x.unit}
+            · Mínimo:
+            ${formatNumber(x.min)} ${x.unit}
+          </div>
+
+          <div class="small">
+            Para llegar al mínimo:
+            ${formatNumber(missing)} ${x.unit}
+          </div>
+
+        </div>
+
+        <span class="badge ${x.stock===0?'low':'warning'}">
+          ${x.stock===0?'Agotado':'Reponer'}
+        </span>
+
+      </div>
+
+    `;
+
+  }).join("");
+
+}
 
 
 /* =========================================================
-   UTILIDADES
+   ESCÁNER
 ========================================================= */
 
-function formatNumber(value){
+let scannerStream=null;
+let scannerInterval=null;
 
-    return Number(value)
-        .toLocaleString(
-            "es-MX",
-            {
-                maximumFractionDigits:3
+
+async function startScanner(){
+
+  const video=document.getElementById("video");
+
+  if(!navigator.mediaDevices ||
+     !navigator.mediaDevices.getUserMedia){
+
+    showToast(
+      "La cámara no está disponible en este navegador."
+    );
+
+    return;
+
+  }
+
+  try{
+
+    stopScanner();
+
+    scannerStream=
+      await navigator.mediaDevices.getUserMedia({
+        video:{
+          facingMode:{
+            ideal:"environment"
+          }
+        },
+        audio:false
+      });
+
+    video.srcObject=scannerStream;
+
+    await video.play();
+
+    if("BarcodeDetector" in window){
+
+      const detector=
+        new BarcodeDetector({
+          formats:[
+            "ean_13",
+            "ean_8",
+            "upc_a",
+            "upc_e",
+            "code_128",
+            "code_39",
+            "itf"
+          ]
+        });
+
+      scannerInterval=setInterval(
+        async()=>{
+
+          if(video.readyState<2) return;
+
+          try{
+
+            const codes=
+              await detector.detect(video);
+
+            if(codes.length){
+
+              const code=
+                codes[0].rawValue;
+
+              stopScanner();
+
+              handleBarcode(code);
+
             }
-        );
+
+          }catch(e){}
+
+        },
+        500
+      );
+
+      showToast("Cámara activa.");
+
+    }else{
+
+      showToast(
+        "Tu navegador no admite detección automática. Usa código manual."
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      "No se pudo abrir la cámara. Revisa los permisos."
+    );
+
+  }
 
 }
 
 
-function slugify(text){
+function stopScanner(){
 
-    return text
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(
-            /[\u0300-\u036f]/g,
-            ""
-        )
-        .replace(
-            /[^a-z0-9]+/g,
-            "-"
-        )
-        .replace(
-            /^-+|-+$/g,
-            ""
-        );
+  if(scannerInterval){
+
+    clearInterval(scannerInterval);
+
+    scannerInterval=null;
+
+  }
+
+  if(scannerStream){
+
+    scannerStream.getTracks()
+      .forEach(track=>track.stop());
+
+    scannerStream=null;
+
+  }
+
+  const video=document.getElementById("video");
+
+  if(video){
+
+    video.pause();
+
+    video.srcObject=null;
+
+  }
 
 }
 
+
+function searchBarcodeManual(){
+
+  const code=
+    document.getElementById("manualBarcode")
+      .value.trim();
+
+  if(!code){
+
+    showToast("Escribe un código.");
+
+    return;
+
+  }
+
+  handleBarcode(code);
+
+}
+
+
+function handleBarcode(code){
+
+  const ingredient=
+    inventory.find(x=>
+      String(x.barcode||"")===String(code)
+    );
+
+  if(ingredient){
+
+    document.getElementById("barcodeModalContent")
+      .innerHTML=`
+
+        <div class="card">
+
+          <div class="card-title">
+            ${escapeHtml(ingredient.name)}
+          </div>
+
+          <div class="small">
+            Código: ${escapeHtml(code)}
+          </div>
+
+          <div class="cost-big" style="margin-top:8px">
+            ${formatNumber(ingredient.stock)}
+            ${ingredient.unit}
+          </div>
+
+        </div>
+
+        <div class="actions">
+
+          <button
+            class="btn"
+            onclick="closeModal('barcodeModal');openMovementModal('${ingredient.id}')">
+            Registrar movimiento
+          </button>
+
+          <button
+            class="btn secondary"
+            onclick="closeModal('barcodeModal');editIngredient('${ingredient.id}')">
+            Editar ingrediente
+          </button>
+
+        </div>
+
+      `;
+
+    openModal("barcodeModal");
+
+    return;
+
+  }
+
+  document.getElementById("scannedBarcode")
+    .value=code;
+
+  document.getElementById("barcodeModalContent")
+    .innerHTML=`
+
+      <div class="card">
+
+        <div class="card-title">
+          Código no registrado
+        </div>
+
+        <div class="small">
+          ${escapeHtml(code)}
+        </div>
+
+      </div>
+
+      <label>¿Qué ingrediente corresponde?</label>
+
+      <select id="unknownBarcodeIngredient">
+
+        <option value="">
+          Seleccionar ingrediente...
+        </option>
+
+        ${inventory.map(x=>`
+
+          <option value="${x.id}">
+            ${escapeHtml(x.name)}
+          </option>
+
+        `).join("")}
+
+      </select>
+
+      <div class="actions">
+
+        <button
+          class="btn"
+          onclick="associateBarcode()">
+          Asociar código
+        </button>
+
+        <button
+          class="btn secondary"
+          onclick="createIngredientFromBarcode()">
+          Crear ingrediente
+        </button>
+
+      </div>
+
+    `;
+
+  openModal("barcodeModal");
+
+}
+
+
+function associateBarcode(){
+
+  const code=
+    document.getElementById("scannedBarcode").value;
+
+  const id=
+    document.getElementById("unknownBarcodeIngredient").value;
+
+  const ingredient=getIngredient(id);
+
+  if(!ingredient){
+
+    showToast("Selecciona un ingrediente.");
+
+    return;
+
+  }
+
+  const already=inventory.find(x=>
+    x.barcode===code &&
+    x.id!==ingredient.id
+  );
+
+  if(already){
+
+    showToast("Ese código ya está registrado.");
+
+    return;
+
+  }
+
+  ingredient.barcode=code;
+
+  saveAll();
+
+  closeModal("barcodeModal");
+
+  renderInventory();
+
+  showToast("Código asociado.");
+
+}
+
+
+function createIngredientFromBarcode(){
+
+  const code=
+    document.getElementById("scannedBarcode").value;
+
+  closeModal("barcodeModal");
+
+  openIngredientModal();
+
+  document.getElementById("ingredientBarcode")
+    .value=code;
+
+}
+
+
+/* =========================================================
+   RESPALDO
+========================================================= */
+
+function exportBackup(){
+
+  const data={
+
+    version:"1.3",
+
+    exportedAt:new Date().toISOString(),
+
+    inventory,
+
+    recipes,
+
+    productionHistory,
+
+    movements
+
+  };
+
+  const blob=new Blob(
+    [JSON.stringify(data,null,2)],
+    {
+      type:"application/json"
+    }
+  );
+
+  const url=
+    URL.createObjectURL(blob);
+
+  const a=document.createElement("a");
+
+  a.href=url;
+
+  a.download=
+    "torito-bakery-respaldo-" +
+    new Date().toISOString()
+      .slice(0,10) +
+    ".json";
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+  showToast("Respaldo exportado.");
+
+}
+
+
+function importBackup(event){
+
+  const file=event.target.files[0];
+
+  if(!file) return;
+
+  const reader=new FileReader();
+
+  reader.onload=function(e){
+
+    try{
+
+      const data=JSON.parse(e.target.result);
+
+      if(!Array.isArray(data.inventory) ||
+         !Array.isArray(data.recipes)){
+
+        throw new Error("Formato inválido");
+
+      }
+
+      if(!confirm(
+        "Esto reemplazará los datos actuales de inventario y recetas. ¿Continuar?"
+      )){
+
+        event.target.value="";
+
+        return;
+
+      }
+
+      inventory=
+        data.inventory.map(normalizeIngredient);
+
+      recipes=
+        data.recipes.map(normalizeRecipe);
+
+      productionHistory=
+        Array.isArray(data.productionHistory)
+          ? data.productionHistory
+          : [];
+
+      movements=
+        Array.isArray(data.movements)
+          ? data.movements
+          : [];
+
+      saveAll();
+
+      renderDashboard();
+
+      renderInventory();
+
+      renderRecipes();
+
+      renderProductionSelect();
+
+      renderProductionHistory();
+
+      renderPurchases();
+
+      showToast("Respaldo importado.");
+
+    }catch(error){
+
+      console.error(error);
+
+      alert(
+        "No se pudo importar el respaldo."
+      );
+
+    }
+
+    event.target.value="";
+
+  };
+
+  reader.readAsText(file);
+
+}
+
+
+/* =========================================================
+   SEGURIDAD DE TEXTO
+========================================================= */
 
 function escapeHtml(value){
 
-    return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-
-}
-
-
-let toastTimer;
-
-function showToast(message){
-
-    const toast =
-        document.getElementById("toast");
-
-    toast.textContent = message;
-
-    toast.classList.add("show");
-
-    clearTimeout(toastTimer);
-
-    toastTimer =
-        setTimeout(
-            () =>
-                toast.classList.remove("show"),
-            2500
-        );
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
 
 /* =========================================================
-   INICIO
+   INICIALIZACIÓN
 ========================================================= */
 
-updateDashboard();
+function init(){
 
-renderInventory();
+  renderDashboard();
 
-renderPurchases();
+  renderInventory();
 
-renderProductionHistory();
+  renderRecipes();
+
+  renderProductionSelect();
+
+  renderProductionHistory();
+
+  renderPurchases();
+
+}
 
 
 /* =========================================================
@@ -2472,20 +3359,24 @@ renderProductionHistory();
 
 if("serviceWorker" in navigator){
 
-    window.addEventListener(
-        "load",
-        () => {
-
-            navigator.serviceWorker
-            .register("./sw.js")
-            .catch(
-                () => {}
-            );
-
-        }
-    );
+  window.addEventListener(
+    "load",
+    ()=>{
+      navigator.serviceWorker
+        .register("./sw.js")
+        .catch(err=>{
+          console.log(
+            "Service Worker:",
+            err
+          );
+        });
+    }
+  );
 
 }
+
+
+init();
 
 </script>
 
