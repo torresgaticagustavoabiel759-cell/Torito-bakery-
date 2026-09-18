@@ -1,1 +1,1929 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#66704A"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Torito Bakery"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon.svg"><title>Torito Bakery</title><style>:root{--cream:#f7f1e3;--olive:#66704a;--dark:#2f3524;--card:#fffdf8;--red:#f4d6d2;--yellow:#f5e9bf}*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--dark);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif}main{max-width:520px;margin:auto;padding:28px 18px 92px}.brand{font-weight:800;font-size:25px;color:var(--olive);letter-spacing:.3px}.sub{margin:3px 0 22px;opacity:.7}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{background:var(--card);border-radius:18px;padding:16px;box-shadow:0 3px 16px #3a402012}.label{font-size:13px;opacity:.65}.num{font-size:25px;font-weight:800;margin-top:5px}.scan{margin:16px 0;background:var(--olive);color:white;border:0;border-radius:18px;padding:17px;width:100%;font-size:17px;font-weight:700}.section{font-weight:800;font-size:18px;margin:24px 0 10px}.alert{background:var(--card);border-radius:15px;padding:13px 14px;margin:8px 0;display:flex;justify-content:space-between;gap:12px}.danger{background:var(--red)}.warn{background:var(--yellow)}nav{position:fixed;bottom:0;left:0;right:0;background:#fffdf8ee;border-top:1px solid #ddd6c8;display:flex;justify-content:center;gap:8px;padding:10px 8px calc(10px + env(safe-area-inset-bottom));backdrop-filter:blur(12px)}nav button{border:0;background:none;color:var(--dark);font-size:11px;padding:7px 9px}nav b{color:var(--olive)}small{opacity:.7}</style></head><body><main><div class="brand">TORITO BAKERY</div><div class="sub">Gestión de almacén</div><div class="grid"><div class="card"><div class="label">Inventario</div><div class="num">20</div><small>ingredientes</small></div><div class="card"><div class="label">Por comprar</div><div class="num">5</div><small>productos</small></div><div class="card"><div class="label">Producción</div><div class="num">0</div><small>hoy</small></div><div class="card"><div class="label">Alertas</div><div class="num">7</div><small>en mínimo</small></div></div><button class="scan" onclick="alert('En la V1.1 conectaremos la cámara del iPhone al escáner de códigos de barras.')">▦ Escanear producto</button><div class="section">Alertas de inventario</div><div class="alert danger"><span>Avellanas</span><b>Comprar</b></div><div class="alert danger"><span>Nuez de la India</span><b>Comprar</b></div><div class="alert danger"><span>Huevo</span><b>Comprar</b></div><div class="alert danger"><span>Levadura</span><b>Comprar</b></div><div class="alert warn"><span>Crema para batir</span><b>Reponer</b></div></main><nav><button>⌂<br><b>Inicio</b></button><button>▣<br>Inventario</button><button>◉<br>Escanear</button><button>🥐<br>Producción</button><button>🛒<br>Compras</button></nav><script>if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');</script></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<meta name="theme-color" content="#66704A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Torito Bakery">
+
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icon.svg">
+
+<title>Torito Bakery</title>
+
+<style>
+
+:root{
+  --cream:#f7f1e3;
+  --olive:#66704a;
+  --dark:#2f3524;
+  --card:#fffdf8;
+  --red:#f4d6d2;
+  --yellow:#f5e9bf;
+  --green:#dfe8d2;
+  --line:#ddd6c8;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--dark);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif;
+}
+
+main{
+  max-width:560px;
+  margin:auto;
+  padding:28px 18px 105px;
+}
+
+.brand{
+  font-weight:800;
+  font-size:25px;
+  color:var(--olive);
+  letter-spacing:.3px;
+}
+
+.sub{
+  margin:3px 0 22px;
+  opacity:.7;
+}
+
+.screen{
+  display:none;
+}
+
+.screen.active{
+  display:block;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.card{
+  background:var(--card);
+  border-radius:18px;
+  padding:16px;
+  box-shadow:0 3px 16px #3a402012;
+}
+
+.label{
+  font-size:13px;
+  opacity:.65;
+}
+
+.num{
+  font-size:25px;
+  font-weight:800;
+  margin-top:5px;
+}
+
+.scan{
+  margin:16px 0;
+  background:var(--olive);
+  color:white;
+  border:0;
+  border-radius:18px;
+  padding:17px;
+  width:100%;
+  font-size:17px;
+  font-weight:700;
+}
+
+.section{
+  font-weight:800;
+  font-size:18px;
+  margin:24px 0 10px;
+}
+
+.alert{
+  background:var(--card);
+  border-radius:15px;
+  padding:13px 14px;
+  margin:8px 0;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.danger{
+  background:var(--red);
+}
+
+.warn{
+  background:var(--yellow);
+}
+
+.ok{
+  background:var(--green);
+}
+
+small{
+  opacity:.7;
+}
+
+nav{
+  position:fixed;
+  z-index:20;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#fffdf8ee;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:center;
+  gap:2px;
+  padding:8px 5px calc(8px + env(safe-area-inset-bottom));
+  backdrop-filter:blur(12px);
+}
+
+nav button{
+  flex:1;
+  max-width:105px;
+  border:0;
+  background:none;
+  color:var(--dark);
+  font-size:11px;
+  padding:7px 4px;
+  border-radius:12px;
+}
+
+nav button.active{
+  background:#eee9dc;
+  color:var(--olive);
+  font-weight:700;
+}
+
+.back{
+  border:0;
+  background:none;
+  color:var(--olive);
+  font-size:15px;
+  padding:0;
+  margin:0 0 12px;
+  font-weight:700;
+}
+
+.toolbar{
+  display:flex;
+  gap:9px;
+  margin:12px 0;
+}
+
+.search{
+  flex:1;
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:12px;
+  background:var(--card);
+  font-size:15px;
+  outline:none;
+}
+
+.mini-btn,
+.primary-btn{
+  border:0;
+  border-radius:13px;
+  padding:11px 13px;
+  font-weight:700;
+  font-size:14px;
+}
+
+.mini-btn{
+  background:#e8e3d6;
+  color:var(--dark);
+}
+
+.primary-btn{
+  background:var(--olive);
+  color:white;
+}
+
+.inventory-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.item{
+  background:var(--card);
+  border-radius:17px;
+  padding:14px;
+  box-shadow:0 2px 12px #3a402010;
+}
+
+.item-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.item-name{
+  font-weight:800;
+  font-size:16px;
+}
+
+.stock{
+  font-size:20px;
+  font-weight:800;
+  color:var(--olive);
+  white-space:nowrap;
+}
+
+.meta{
+  font-size:12px;
+  opacity:.65;
+  margin-top:4px;
+}
+
+.status{
+  display:inline-block;
+  font-size:11px;
+  font-weight:700;
+  border-radius:999px;
+  padding:5px 8px;
+  margin-top:9px;
+}
+
+.status.buy{
+  background:var(--red);
+}
+
+.status.warn{
+  background:var(--yellow);
+}
+
+.status.good{
+  background:var(--green);
+}
+
+.actions{
+  display:flex;
+  gap:7px;
+  margin-top:11px;
+}
+
+.actions button{
+  flex:1;
+}
+
+.empty{
+  text-align:center;
+  padding:28px 12px;
+  opacity:.65;
+  background:var(--card);
+  border-radius:17px;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  z-index:50;
+  inset:0;
+  background:#00000066;
+  padding:20px;
+  align-items:flex-end;
+  justify-content:center;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.sheet{
+  width:100%;
+  max-width:560px;
+  background:var(--card);
+  border-radius:22px;
+  padding:20px;
+  box-shadow:0 -5px 30px #0002;
+}
+
+.sheet h3{
+  margin:0 0 14px;
+}
+
+.field{
+  margin:10px 0;
+}
+
+.field label{
+  display:block;
+  font-size:12px;
+  opacity:.65;
+  margin-bottom:5px;
+}
+
+.field input{
+  width:100%;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:white;
+  font-size:16px;
+}
+
+.modal-actions{
+  display:flex;
+  gap:8px;
+  margin-top:16px;
+}
+
+.modal-actions button{
+  flex:1;
+}
+
+.production-card{
+  background:var(--card);
+  border-radius:18px;
+  padding:16px;
+  margin-top:12px;
+}
+
+.recipe-row{
+  display:flex;
+  justify-content:space-between;
+  padding:8px 0;
+  border-bottom:1px solid #eee8db;
+  font-size:14px;
+}
+
+.toast{
+  position:fixed;
+  z-index:100;
+  left:50%;
+  bottom:88px;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--dark);
+  color:white;
+  padding:11px 15px;
+  border-radius:13px;
+  font-size:13px;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+</style>
+</head>
+
+<body>
+
+<main>
+
+<!-- ================= INICIO ================= -->
+
+<section id="inicio" class="screen active">
+
+<div class="brand">TORITO BAKERY</div>
+<div class="sub">Gestión de almacén</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="label">Inventario</div>
+<div class="num" id="totalItems">20</div>
+<small>ingredientes</small>
+</div>
+
+<div class="card">
+<div class="label">Por comprar</div>
+<div class="num" id="buyCount">0</div>
+<small>productos</small>
+</div>
+
+<div class="card">
+<div class="label">Producción</div>
+<div class="num" id="productionToday">0</div>
+<small>unidades hoy</small>
+</div>
+
+<div class="card">
+<div class="label">Alertas</div>
+<div class="num" id="alertCount">0</div>
+<small>en mínimo</small>
+</div>
+
+</div>
+
+<button class="scan" onclick="showScreen('inventario')">
+📦 Ver inventario
+</button>
+
+<div class="section">
+Alertas de inventario
+</div>
+
+<div id="homeAlerts"></div>
+
+</section>
+
+
+<!-- ================= INVENTARIO ================= -->
+
+<section id="inventario" class="screen">
+
+<button class="back" onclick="showScreen('inicio')">
+‹ Inicio
+</button>
+
+<div class="brand">
+Inventario
+</div>
+
+<div class="sub">
+Existencias de Torito Bakery
+</div>
+
+<div class="toolbar">
+
+<input
+id="searchInput"
+class="search"
+placeholder="Buscar ingrediente..."
+oninput="renderInventory()"
+>
+
+<button
+class="mini-btn"
+onclick="openAddItem()"
+>
+＋
+</button>
+
+</div>
+
+<div id="inventoryList" class="inventory-list"></div>
+
+</section>
+
+
+<!-- ================= ESCANEAR ================= -->
+
+<section id="escanear" class="screen">
+
+<button class="back" onclick="showScreen('inicio')">
+‹ Inicio
+</button>
+
+<div class="brand">
+Escanear
+</div>
+
+<div class="sub">
+Entradas y salidas por código de barras
+</div>
+
+<div class="card">
+
+<div style="font-size:42px;text-align:center">
+▦
+</div>
+
+<h3 style="text-align:center">
+Escáner de productos
+</h3>
+
+<p style="text-align:center;opacity:.7">
+La cámara del iPhone se conectará en la siguiente versión.
+Por ahora puedes registrar entradas y salidas desde Inventario.
+</p>
+
+<button
+class="primary-btn"
+style="width:100%"
+onclick="showScreen('inventario')"
+>
+Ir a Inventario
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= PRODUCCIÓN ================= -->
+
+<section id="produccion" class="screen">
+
+<button class="back" onclick="showScreen('inicio')">
+‹ Inicio
+</button>
+
+<div class="brand">
+Producción
+</div>
+
+<div class="sub">
+Descuento automático de ingredientes
+</div>
+
+<div class="production-card">
+
+<h3 style="margin-top:0">
+🥐 Croissant
+</h3>
+
+<p style="opacity:.7">
+Receta base: 10 croissants
+</p>
+
+<div class="recipe-row">
+<span>Harina</span>
+<b>0.500 kg</b>
+</div>
+
+<div class="recipe-row">
+<span>Azúcar</span>
+<b>0.060 kg</b>
+</div>
+
+<div class="recipe-row">
+<span>Leche</span>
+<b>0.200 L</b>
+</div>
+
+<div class="recipe-row">
+<span>Levadura</span>
+<b>0.018 kg</b>
+</div>
+
+<div class="recipe-row">
+<span>Agua</span>
+<b>0.050 L</b>
+</div>
+
+<div class="recipe-row">
+<span>Sal</span>
+<b>0.010 kg</b>
+</div>
+
+<div class="recipe-row">
+<span>Mantequilla</span>
+<b>0.330 kg</b>
+</div>
+
+<div class="field" style="margin-top:16px">
+
+<label>
+Cantidad de croissants a producir
+</label>
+
+<input
+id="productionQty"
+type="number"
+min="1"
+value="10"
+>
+
+</div>
+
+<button
+class="primary-btn"
+style="width:100%"
+onclick="produceCroissants()"
+>
+Registrar producción
+</button>
+
+<small>
+Para esta primera versión, los líquidos de la receta se manejan
+como equivalencia aproximada kg/L.
+</small>
+
+</div>
+
+</section>
+
+
+<!-- ================= COMPRAS ================= -->
+
+<section id="compras" class="screen">
+
+<button class="back" onclick="showScreen('inicio')">
+‹ Inicio
+</button>
+
+<div class="brand">
+Compras
+</div>
+
+<div class="sub">
+Productos que necesitan reposición
+</div>
+
+<div id="purchaseList"></div>
+
+</section>
+
+</main>
+
+
+<!-- ================= NAVEGACIÓN ================= -->
+
+<nav>
+
+<button
+data-screen="inicio"
+onclick="showScreen('inicio')"
+>
+⌂<br>Inicio
+</button>
+
+<button
+data-screen="inventario"
+onclick="showScreen('inventario')"
+>
+▣<br>Inventario
+</button>
+
+<button
+data-screen="escanear"
+onclick="showScreen('escanear')"
+>
+▦<br>Escanear
+</button>
+
+<button
+data-screen="produccion"
+onclick="showScreen('produccion')"
+>
+🥐<br>Producción
+</button>
+
+<button
+data-screen="compras"
+onclick="showScreen('compras')"
+>
+🛒<br>Compras
+</button>
+
+</nav>
+
+
+<!-- ================= MODAL STOCK ================= -->
+
+<div id="stockModal" class="modal">
+
+<div class="sheet">
+
+<h3 id="modalTitle">
+Modificar inventario
+</h3>
+
+<div class="field">
+
+<label>
+Ingrediente
+</label>
+
+<input
+id="modalName"
+disabled
+>
+
+</div>
+
+<div class="field">
+
+<label>
+Cantidad
+</label>
+
+<input
+id="modalQty"
+type="number"
+step="0.001"
+min="0"
+>
+
+</div>
+
+<div class="modal-actions">
+
+<button
+class="mini-btn"
+onclick="closeModal()"
+>
+Cancelar
+</button>
+
+<button
+id="modalSave"
+class="primary-btn"
+>
+Guardar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= MODAL NUEVO ================= -->
+
+<div id="addModal" class="modal">
+
+<div class="sheet">
+
+<h3>
+Agregar ingrediente
+</h3>
+
+<div class="field">
+
+<label>
+Nombre
+</label>
+
+<input
+id="newName"
+placeholder="Ej. Vainilla"
+>
+
+</div>
+
+<div class="field">
+
+<label>
+Existencia inicial
+</label>
+
+<input
+id="newStock"
+type="number"
+step="0.001"
+min="0"
+value="0"
+>
+
+</div>
+
+<div class="field">
+
+<label>
+Unidad
+</label>
+
+<input
+id="newUnit"
+placeholder="kg, L, piezas..."
+>
+
+</div>
+
+<div class="field">
+
+<label>
+Mínimo
+</label>
+
+<input
+id="newMin"
+type="number"
+step="0.001"
+min="0"
+value="0"
+>
+
+</div>
+
+<div class="modal-actions">
+
+<button
+class="mini-btn"
+onclick="closeAddModal()"
+>
+Cancelar
+</button>
+
+<button
+class="primary-btn"
+onclick="addItem()"
+>
+Agregar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+/* ==========================================
+   INVENTARIO INICIAL TORITO BAKERY
+========================================== */
+
+const defaultInventory = [
+
+{
+id:"azucar",
+name:"Azúcar",
+stock:11,
+unit:"kg",
+min:5
+},
+
+{
+id:"azucar-mascabado",
+name:"Azúcar mascabado",
+stock:5,
+unit:"kg",
+min:2
+},
+
+{
+id:"azucar-glas",
+name:"Azúcar glas",
+stock:2,
+unit:"kg",
+min:1
+},
+
+{
+id:"chocolate",
+name:"Chocolate",
+stock:5,
+unit:"kg",
+min:1
+},
+
+{
+id:"cocoa",
+name:"Cocoa",
+stock:1.5,
+unit:"kg",
+min:.5
+},
+
+{
+id:"arandanos",
+name:"Arándanos",
+stock:.5,
+unit:"kg",
+min:.5
+},
+
+{
+id:"nueces",
+name:"Nueces",
+stock:1.5,
+unit:"kg",
+min:1
+},
+
+{
+id:"avellanas",
+name:"Avellanas",
+stock:.35,
+unit:"kg",
+min:.5
+},
+
+{
+id:"nuez-india",
+name:"Nuez de la India",
+stock:0,
+unit:"kg",
+min:.5
+},
+
+{
+id:"mermelada",
+name:"Mermelada",
+stock:.45,
+unit:"kg",
+min:.2
+},
+
+{
+id:"huevo",
+name:"Huevo",
+stock:25,
+unit:"piezas",
+min:30
+},
+
+{
+id:"philadelphia",
+name:"Queso Philadelphia",
+stock:1.14,
+unit:"kg",
+min:.76
+},
+
+{
+id:"levadura",
+name:"Levadura",
+stock:0,
+unit:"kg",
+min:.4
+},
+
+{
+id:"leche",
+name:"Leche",
+stock:5,
+unit:"L",
+min:3
+},
+
+{
+id:"crema",
+name:"Crema para batir",
+stock:1,
+unit:"L",
+min:1.5
+},
+
+{
+id:"mantequilla",
+name:"Mantequilla",
+stock:8,
+unit:"kg",
+min:5
+},
+
+{
+id:"harina",
+name:"Harina",
+stock:6,
+unit:"kg",
+min:6
+},
+
+{
+id:"agua",
+name:"Agua",
+stock:10,
+unit:"L",
+min:5
+},
+
+{
+id:"sal",
+name:"Sal",
+stock:.5,
+unit:"kg",
+min:.5
+},
+
+{
+id:"miel",
+name:"Miel",
+stock:0,
+unit:"kg",
+min:0
+}
+
+];
+
+
+/* ==========================================
+   GUARDADO LOCAL
+========================================== */
+
+let inventory =
+JSON.parse(localStorage.getItem("torito_inventory"))
+|| defaultInventory;
+
+let productionLog =
+JSON.parse(localStorage.getItem("torito_production"))
+|| [];
+
+
+function saveData(){
+
+localStorage.setItem(
+"torito_inventory",
+JSON.stringify(inventory)
+);
+
+localStorage.setItem(
+"torito_production",
+JSON.stringify(productionLog)
+);
+
+}
+
+
+/* ==========================================
+   NAVEGACIÓN
+========================================== */
+
+function showScreen(screen){
+
+document
+.querySelectorAll(".screen")
+.forEach(s=>s.classList.remove("active"));
+
+const target =
+document.getElementById(screen);
+
+if(target){
+target.classList.add("active");
+}
+
+document
+.querySelectorAll("nav button")
+.forEach(button=>{
+
+button.classList.toggle(
+"active",
+button.dataset.screen===screen
+);
+
+});
+
+if(screen==="inventario"){
+renderInventory();
+}
+
+if(screen==="compras"){
+renderPurchases();
+}
+
+updateDashboard();
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/* ==========================================
+   ESTADO DEL INVENTARIO
+========================================== */
+
+function statusOf(item){
+
+if(item.stock<=0){
+return "buy";
+}
+
+if(item.stock<=item.min){
+return "warn";
+}
+
+return "good";
+
+}
+
+
+function statusText(item){
+
+if(item.stock<=0){
+return "Comprar ahora";
+}
+
+if(item.stock<=item.min){
+return "Reponer";
+}
+
+return "Stock suficiente";
+
+}
+
+
+/* ==========================================
+   RENDER INVENTARIO
+========================================== */
+
+function renderInventory(){
+
+const list =
+document.getElementById("inventoryList");
+
+const search =
+document.getElementById("searchInput");
+
+const q =
+(search.value||"")
+.toLowerCase()
+.trim();
+
+const filtered =
+inventory.filter(item=>
+item.name
+.toLowerCase()
+.includes(q)
+);
+
+if(!filtered.length){
+
+list.innerHTML=
+'<div class="empty">No encontramos ese ingrediente.</div>';
+
+return;
+
+}
+
+
+list.innerHTML =
+filtered.map(item=>`
+
+<div class="item">
+
+<div class="item-top">
+
+<div>
+
+<div class="item-name">
+${escapeHtml(item.name)}
+</div>
+
+<div class="meta">
+Mínimo:
+${formatNumber(item.min)}
+${escapeHtml(item.unit)}
+</div>
+
+</div>
+
+<div class="stock">
+
+${formatNumber(item.stock)}
+${escapeHtml(item.unit)}
+
+</div>
+
+</div>
+
+
+<span class="status ${statusOf(item)}">
+
+${statusText(item)}
+
+</span>
+
+
+<div class="actions">
+
+<button
+class="mini-btn"
+onclick="changeStock('${item.id}','out')"
+>
+➖ Salida
+</button>
+
+<button
+class="mini-btn"
+onclick="changeStock('${item.id}','in')"
+>
+➕ Entrada
+</button>
+
+<button
+class="mini-btn"
+onclick="editStock('${item.id}')"
+>
+✏️ Editar
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* ==========================================
+   ENTRADAS / SALIDAS
+========================================== */
+
+function changeStock(id,type){
+
+const item =
+inventory.find(x=>x.id===id);
+
+if(!item)return;
+
+
+document.getElementById("modalTitle").textContent =
+type==="in"
+? "Registrar entrada"
+: "Registrar salida";
+
+
+document.getElementById("modalName").value =
+item.name;
+
+document.getElementById("modalQty").value="";
+
+document
+.getElementById("stockModal")
+.classList.add("show");
+
+
+document.getElementById("modalSave").onclick=()=>{
+
+const qty =
+Number(
+document.getElementById("modalQty").value
+);
+
+
+if(!qty || qty<=0){
+
+showToast("Escribe una cantidad válida.");
+
+return;
+
+}
+
+
+if(type==="out" && qty>item.stock){
+
+showToast("No hay suficiente existencia.");
+
+return;
+
+}
+
+
+if(type==="in"){
+
+item.stock += qty;
+
+}else{
+
+item.stock -= qty;
+
+}
+
+
+saveData();
+
+closeModal();
+
+renderInventory();
+
+updateDashboard();
+
+showToast("Inventario actualizado.");
+
+};
+
+}
+
+
+/* ==========================================
+   EDITAR EXISTENCIA
+========================================== */
+
+function editStock(id){
+
+const item =
+inventory.find(x=>x.id===id);
+
+if(!item)return;
+
+
+document.getElementById("modalTitle").textContent =
+"Editar existencia";
+
+document.getElementById("modalName").value =
+item.name;
+
+document.getElementById("modalQty").value =
+item.stock;
+
+document
+.getElementById("stockModal")
+.classList.add("show");
+
+
+document.getElementById("modalSave").onclick=()=>{
+
+const qty =
+Number(
+document.getElementById("modalQty").value
+);
+
+
+if(isNaN(qty)||qty<0){
+
+showToast("Escribe una cantidad válida.");
+
+return;
+
+}
+
+
+item.stock=qty;
+
+saveData();
+
+closeModal();
+
+renderInventory();
+
+updateDashboard();
+
+showToast("Existencia modificada.");
+
+};
+
+}
+
+
+function closeModal(){
+
+document
+.getElementById("stockModal")
+.classList.remove("show");
+
+}
+
+
+/* ==========================================
+   AGREGAR INGREDIENTE
+========================================== */
+
+function openAddItem(){
+
+document
+.getElementById("addModal")
+.classList.add("show");
+
+}
+
+
+function closeAddModal(){
+
+document
+.getElementById("addModal")
+.classList.remove("show");
+
+}
+
+
+function addItem(){
+
+const name =
+document.getElementById("newName")
+.value.trim();
+
+const stock =
+Number(
+document.getElementById("newStock").value
+);
+
+const unit =
+document.getElementById("newUnit")
+.value.trim()
+||"kg";
+
+const min =
+Number(
+document.getElementById("newMin").value
+);
+
+
+if(!name){
+
+showToast("Escribe el nombre.");
+
+return;
+
+}
+
+
+inventory.push({
+
+id:
+slugify(name)
++"-"
++Date.now(),
+
+name:name,
+
+stock:
+isNaN(stock)
+?0
+:stock,
+
+unit:unit,
+
+min:
+isNaN(min)
+?0
+:min
+
+});
+
+
+saveData();
+
+closeAddModal();
+
+document.getElementById("newName").value="";
+document.getElementById("newStock").value="0";
+document.getElementById("newUnit").value="";
+document.getElementById("newMin").value="0";
+
+renderInventory();
+
+updateDashboard();
+
+showToast("Ingrediente agregado.");
+
+}
+
+
+/* ==========================================
+   PRODUCCIÓN
+========================================== */
+
+function produceCroissants(){
+
+const qty =
+Number(
+document.getElementById("productionQty").value
+);
+
+
+if(!qty || qty<=0){
+
+showToast("Escribe una cantidad válida.");
+
+return;
+
+}
+
+
+/*
+Receta base:
+
+10 croissants
+
+Harina       0.500 kg
+Azúcar       0.060 kg
+Leche        0.200 L
+Levadura     0.018 kg
+Agua         0.050 L
+Sal          0.010 kg
+Mantequilla  0.330 kg
+*/
+
+const batches =
+qty/10;
+
+
+const recipe={
+
+harina:.5,
+
+azucar:.06,
+
+leche:.2,
+
+levadura:.018,
+
+agua:.05,
+
+sal:.01,
+
+mantequilla:.33
+
+};
+
+
+const needed={
+
+harina:
+recipe.harina*batches,
+
+azucar:
+recipe.azucar*batches,
+
+leche:
+recipe.leche*batches,
+
+levadura:
+recipe.levadura*batches,
+
+agua:
+recipe.agua*batches,
+
+sal:
+recipe.sal*batches,
+
+mantequilla:
+recipe.mantequilla*batches
+
+};
+
+
+const missing=[];
+
+
+for(
+const [id,amount]
+of Object.entries(needed)
+){
+
+const item =
+inventory.find(x=>x.id===id);
+
+if(!item){
+
+missing.push(id);
+
+}
+
+else if(item.stock<amount){
+
+missing.push(
+item.name+
+" (faltan "+
+formatNumber(amount-item.stock)+
+" "+
+item.unit+
+")"
+);
+
+}
+
+}
+
+
+if(missing.length){
+
+alert(
+"No se puede registrar la producción porque falta:\n\n"+
+missing.join("\n")
+);
+
+return;
+
+}
+
+
+for(
+const [id,amount]
+of Object.entries(needed)
+){
+
+const item =
+inventory.find(x=>x.id===id);
+
+item.stock-=amount;
+
+}
+
+
+productionLog.push({
+
+date:new Date().toISOString(),
+
+product:"Croissant",
+
+quantity:qty
+
+});
+
+
+saveData();
+
+updateDashboard();
+
+renderInventory();
+
+
+alert(
+"Producción registrada.\n\n"+
+qty+
+" croissants\n\n"+
+"Los ingredientes fueron descontados automáticamente."
+);
+
+}
+
+
+/* ==========================================
+   COMPRAS
+========================================== */
+
+function getLowStock(){
+
+return inventory.filter(
+item=>item.stock<=item.min
+);
+
+}
+
+
+function renderPurchases(){
+
+const container =
+document.getElementById("purchaseList");
+
+const low =
+getLowStock();
+
+
+if(!low.length){
+
+container.innerHTML=
+`
+<div class="alert ok">
+<span>Todo en orden</span>
+<b>✓</b>
+</div>
+`;
+
+return;
+
+}
+
+
+container.innerHTML =
+low.map(item=>`
+
+<div class="alert ${
+item.stock<=0
+?"danger"
+:"warn"
+}">
+
+<span>
+
+<b>
+${escapeHtml(item.name)}
+</b>
+
+<br>
+
+<small>
+
+${formatNumber(item.stock)}
+${escapeHtml(item.unit)}
+disponibles · mínimo
+
+${formatNumber(item.min)}
+${escapeHtml(item.unit)}
+
+</small>
+
+</span>
+
+<b>
+
+${
+item.stock<=0
+?"Comprar"
+:"Reponer"
+}
+
+</b>
+
+</div>
+
+`).join("");
+
+}
+
+
+/* ==========================================
+   DASHBOARD
+========================================== */
+
+function updateDashboard(){
+
+const low =
+getLowStock();
+
+const buy =
+inventory.filter(
+item=>item.stock<=0
+);
+
+
+document.getElementById("totalItems")
+.textContent=inventory.length;
+
+
+document.getElementById("buyCount")
+.textContent=buy.length;
+
+
+document.getElementById("alertCount")
+.textContent=low.length;
+
+
+const today =
+new Date().toDateString();
+
+
+const todayProduction =
+productionLog
+.filter(
+x=>new Date(x.date).toDateString()===today
+)
+.reduce(
+(sum,x)=>sum+Number(x.quantity),
+0
+);
+
+
+document.getElementById("productionToday")
+.textContent=todayProduction;
+
+
+const alerts =
+low.slice(0,5);
+
+const home =
+document.getElementById("homeAlerts");
+
+
+if(!alerts.length){
+
+home.innerHTML=
+`
+<div class="alert ok">
+
+<span>
+No hay productos en mínimo.
+</span>
+
+<b>✓</b>
+
+</div>
+`;
+
+}else{
+
+home.innerHTML =
+alerts.map(item=>`
+
+<div class="alert ${
+item.stock<=0
+?"danger"
+:"warn"
+}">
+
+<span>
+${escapeHtml(item.name)}
+</span>
+
+<b>
+${
+item.stock<=0
+?"Comprar"
+:"Reponer"
+}
+</b>
+
+</div>
+
+`).join("");
+
+}
+
+}
+
+
+/* ==========================================
+   UTILIDADES
+========================================== */
+
+function formatNumber(n){
+
+return Number(n).toLocaleString(
+"es-MX",
+{
+maximumFractionDigits:3
+}
+);
+
+}
+
+
+function slugify(text){
+
+return text
+.toLowerCase()
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"")
+.replace(/[^a-z0-9]+/g,"-")
+.replace(/^-|-$/g,"");
+
+}
+
+
+function escapeHtml(text){
+
+return String(text)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+function showToast(message){
+
+const toast =
+document.getElementById("toast");
+
+toast.textContent=message;
+
+toast.classList.add("show");
+
+setTimeout(
+()=>toast.classList.remove("show"),
+2200
+);
+
+}
+
+
+/* ==========================================
+   CERRAR MODALES
+========================================== */
+
+document
+.getElementById("stockModal")
+.addEventListener("click",e=>{
+
+if(e.target.id==="stockModal"){
+closeModal();
+}
+
+});
+
+
+document
+.getElementById("addModal")
+.addEventListener("click",e=>{
+
+if(e.target.id==="addModal"){
+closeAddModal();
+}
+
+});
+
+
+/* ==========================================
+   SERVICE WORKER
+========================================== */
+
+if("serviceWorker" in navigator){
+
+window.addEventListener(
+"load",
+()=>{
+
+navigator.serviceWorker
+.register("./sw.js")
+.catch(
+()=>{}
+);
+
+}
+);
+
+}
+
+
+/* ==========================================
+   INICIO
+========================================== */
+
+updateDashboard();
+
+</script>
+
+</body>
+</html>
