@@ -1,382 +1,492 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<meta name="theme-color" content="#66704A">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Torito Bakery">
+<title>Torito Bakery</title>
 
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./icon.svg">
 
-<title>Torito Bakery</title>
+<meta name="theme-color" content="#66734f">
 
 <style>
 
 :root{
-  --cream:#f7f1e3;
-  --olive:#66704a;
-  --dark:#2f3524;
-  --card:#fffdf8;
-  --red:#f4d6d2;
-  --yellow:#f5e9bf;
-  --green:#dfe8d2;
-  --line:#ddd6c8;
+    --verde:#66734f;
+    --verde-oscuro:#4f5b3d;
+    --crema:#f7f1e5;
+    --blanco:#fffdf8;
+    --texto:#34372f;
+    --gris:#77786f;
+    --rojo:#b85450;
+    --amarillo:#d29b38;
+    --verde-claro:#dfe6d2;
 }
 
 *{
-  box-sizing:border-box;
+    box-sizing:border-box;
 }
 
 body{
-  margin:0;
-  background:var(--cream);
-  color:var(--dark);
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif;
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+    background:var(--crema);
+    color:var(--texto);
 }
 
-main{
-  max-width:560px;
-  margin:auto;
-  padding:28px 18px 105px;
+button,
+input,
+select{
+    font:inherit;
 }
 
-.brand{
-  font-weight:800;
-  font-size:25px;
-  color:var(--olive);
-  letter-spacing:.3px;
+button{
+    cursor:pointer;
 }
 
-.sub{
-  margin:3px 0 22px;
-  opacity:.7;
+.app{
+    max-width:650px;
+    margin:auto;
+    min-height:100vh;
+    background:var(--crema);
+    padding-bottom:90px;
 }
+
+/* HEADER */
+
+header{
+    padding:22px 20px 12px;
+}
+
+.logo{
+    font-size:27px;
+    font-weight:800;
+    letter-spacing:-1px;
+    color:var(--verde);
+}
+
+.subtitle{
+    color:var(--gris);
+    font-size:14px;
+    margin-top:3px;
+}
+
+/* SCREENS */
 
 .screen{
-  display:none;
+    display:none;
+    padding:10px 18px 30px;
 }
 
 .screen.active{
-  display:block;
+    display:block;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+h1{
+    font-size:27px;
+    margin:10px 0 5px;
+}
+
+h2{
+    font-size:20px;
+    margin:20px 0 12px;
+}
+
+p{
+    line-height:1.45;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    margin-top:18px;
 }
 
 .card{
-  background:var(--card);
-  border-radius:18px;
-  padding:16px;
-  box-shadow:0 3px 16px #3a402012;
+    background:var(--blanco);
+    border-radius:18px;
+    padding:17px;
+    box-shadow:0 3px 12px rgba(50,50,40,.06);
 }
 
-.label{
-  font-size:13px;
-  opacity:.65;
+.card-title{
+    color:var(--gris);
+    font-size:13px;
 }
 
-.num{
-  font-size:25px;
-  font-weight:800;
-  margin-top:5px;
+.card-value{
+    font-size:28px;
+    font-weight:800;
+    color:var(--verde);
+    margin-top:7px;
 }
 
-.scan{
-  margin:16px 0;
-  background:var(--olive);
-  color:white;
-  border:0;
-  border-radius:18px;
-  padding:17px;
-  width:100%;
-  font-size:17px;
-  font-weight:700;
+/* BUTTONS */
+
+.primary{
+    width:100%;
+    border:0;
+    background:var(--verde);
+    color:white;
+    border-radius:15px;
+    padding:14px;
+    font-weight:700;
+    margin-top:10px;
 }
 
-.section{
-  font-weight:800;
-  font-size:18px;
-  margin:24px 0 10px;
-}
-
-.alert{
-  background:var(--card);
-  border-radius:15px;
-  padding:13px 14px;
-  margin:8px 0;
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
+.secondary{
+    border:1px solid #d8d3c6;
+    background:var(--blanco);
+    color:var(--texto);
+    border-radius:12px;
+    padding:10px 13px;
 }
 
 .danger{
-  background:var(--red);
+    background:#f6dfdd;
+    color:#9e3e39;
+    border:0;
+    border-radius:12px;
+    padding:10px 13px;
 }
 
-.warn{
-  background:var(--yellow);
-}
-
-.ok{
-  background:var(--green);
-}
-
-small{
-  opacity:.7;
-}
-
-nav{
-  position:fixed;
-  z-index:20;
-  bottom:0;
-  left:0;
-  right:0;
-  background:#fffdf8ee;
-  border-top:1px solid var(--line);
-  display:flex;
-  justify-content:center;
-  gap:2px;
-  padding:8px 5px calc(8px + env(safe-area-inset-bottom));
-  backdrop-filter:blur(12px);
-}
-
-nav button{
-  flex:1;
-  max-width:105px;
-  border:0;
-  background:none;
-  color:var(--dark);
-  font-size:11px;
-  padding:7px 4px;
-  border-radius:12px;
-}
-
-nav button.active{
-  background:#eee9dc;
-  color:var(--olive);
-  font-weight:700;
-}
-
-.back{
-  border:0;
-  background:none;
-  color:var(--olive);
-  font-size:15px;
-  padding:0;
-  margin:0 0 12px;
-  font-weight:700;
-}
-
-.toolbar{
-  display:flex;
-  gap:9px;
-  margin:12px 0;
-}
+/* SEARCH */
 
 .search{
-  flex:1;
-  border:1px solid var(--line);
-  border-radius:13px;
-  padding:12px;
-  background:var(--card);
-  font-size:15px;
-  outline:none;
+    width:100%;
+    padding:14px 15px;
+    border:1px solid #ddd8ca;
+    background:var(--blanco);
+    border-radius:14px;
+    outline:none;
+    margin:10px 0 15px;
 }
 
-.mini-btn,
-.primary-btn{
-  border:0;
-  border-radius:13px;
-  padding:11px 13px;
-  font-weight:700;
-  font-size:14px;
+.search:focus{
+    border-color:var(--verde);
 }
 
-.mini-btn{
-  background:#e8e3d6;
-  color:var(--dark);
-}
+/* INVENTORY */
 
-.primary-btn{
-  background:var(--olive);
-  color:white;
-}
-
-.inventory-list{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.item{
-  background:var(--card);
-  border-radius:17px;
-  padding:14px;
-  box-shadow:0 2px 12px #3a402010;
+.inventory-item{
+    background:var(--blanco);
+    border-radius:17px;
+    padding:15px;
+    margin-bottom:10px;
+    box-shadow:0 2px 9px rgba(50,50,40,.05);
 }
 
 .item-top{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
 }
 
 .item-name{
-  font-weight:800;
-  font-size:16px;
+    font-weight:750;
+    font-size:16px;
+}
+
+.item-code{
+    font-size:12px;
+    color:var(--gris);
+    margin-top:4px;
+    word-break:break-all;
 }
 
 .stock{
-  font-size:20px;
-  font-weight:800;
-  color:var(--olive);
-  white-space:nowrap;
+    font-weight:800;
+    color:var(--verde);
+    white-space:nowrap;
 }
 
-.meta{
-  font-size:12px;
-  opacity:.65;
-  margin-top:4px;
+.stock.low{
+    color:var(--rojo);
 }
 
-.status{
-  display:inline-block;
-  font-size:11px;
-  font-weight:700;
-  border-radius:999px;
-  padding:5px 8px;
-  margin-top:9px;
+.stock-row{
+    margin-top:9px;
+    font-size:13px;
+    color:var(--gris);
 }
 
-.status.buy{
-  background:var(--red);
+.item-actions{
+    display:flex;
+    gap:8px;
+    margin-top:12px;
 }
 
-.status.warn{
-  background:var(--yellow);
+.item-actions button{
+    flex:1;
 }
 
-.status.good{
-  background:var(--green);
+/* BADGES */
+
+.badge{
+    display:inline-block;
+    margin-top:8px;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:700;
 }
 
-.actions{
-  display:flex;
-  gap:7px;
-  margin-top:11px;
+.badge.ok{
+    background:var(--verde-claro);
+    color:var(--verde-oscuro);
 }
 
-.actions button{
-  flex:1;
+.badge.low{
+    background:#f5e3c2;
+    color:#8c651e;
 }
 
-.empty{
-  text-align:center;
-  padding:28px 12px;
-  opacity:.65;
-  background:var(--card);
-  border-radius:17px;
+.badge.empty{
+    background:#f3d8d5;
+    color:#963e39;
 }
+
+/* SCANNER */
+
+.scanner-box{
+    background:#111;
+    border-radius:22px;
+    overflow:hidden;
+    position:relative;
+    aspect-ratio:1/1;
+    margin-top:18px;
+}
+
+#video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.scan-overlay{
+    position:absolute;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    pointer-events:none;
+}
+
+.scan-frame{
+    width:70%;
+    height:38%;
+    border:3px solid white;
+    border-radius:18px;
+    box-shadow:0 0 0 999px rgba(0,0,0,.28);
+}
+
+.scanner-status{
+    text-align:center;
+    margin:12px 0;
+    color:var(--gris);
+    font-size:14px;
+}
+
+.scanner-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.manual-code{
+    margin-top:15px;
+}
+
+.manual-code input{
+    width:100%;
+    padding:13px;
+    border:1px solid #ddd8ca;
+    background:var(--blanco);
+    border-radius:13px;
+    outline:none;
+}
+
+.manual-code button{
+    width:100%;
+    margin-top:8px;
+}
+
+/* PRODUCTION */
+
+.production-card{
+    background:var(--blanco);
+    border-radius:18px;
+    padding:17px;
+}
+
+.production-card input{
+    width:100%;
+    padding:13px;
+    border:1px solid #ddd8ca;
+    border-radius:12px;
+    margin:7px 0 10px;
+}
+
+.recipe{
+    background:#f1eadc;
+    padding:13px;
+    border-radius:14px;
+    margin-top:12px;
+    font-size:14px;
+}
+
+/* PURCHASES */
+
+.purchase-item{
+    background:var(--blanco);
+    padding:15px;
+    border-radius:16px;
+    margin-bottom:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.purchase-item strong{
+    display:block;
+}
+
+.purchase-item span{
+    font-size:13px;
+    color:var(--gris);
+}
+
+/* MODAL */
 
 .modal{
-  display:none;
-  position:fixed;
-  z-index:50;
-  inset:0;
-  background:#00000066;
-  padding:20px;
-  align-items:flex-end;
-  justify-content:center;
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.42);
+    z-index:100;
+    padding:20px;
+    align-items:flex-end;
+    justify-content:center;
 }
 
-.modal.show{
-  display:flex;
+.modal.active{
+    display:flex;
 }
 
-.sheet{
-  width:100%;
-  max-width:560px;
-  background:var(--card);
-  border-radius:22px;
-  padding:20px;
-  box-shadow:0 -5px 30px #0002;
+.modal-content{
+    width:100%;
+    max-width:620px;
+    background:var(--crema);
+    border-radius:24px 24px 0 0;
+    padding:20px;
+    max-height:90vh;
+    overflow:auto;
 }
 
-.sheet h3{
-  margin:0 0 14px;
+.modal-content h2{
+    margin-top:0;
 }
 
-.field{
-  margin:10px 0;
-}
-
-.field label{
-  display:block;
-  font-size:12px;
-  opacity:.65;
-  margin-bottom:5px;
-}
-
-.field input{
-  width:100%;
-  padding:12px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:white;
-  font-size:16px;
+.modal-content input,
+.modal-content select{
+    width:100%;
+    padding:13px;
+    border:1px solid #d8d3c6;
+    border-radius:12px;
+    background:var(--blanco);
+    margin:6px 0 12px;
 }
 
 .modal-actions{
-  display:flex;
-  gap:8px;
-  margin-top:16px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
 }
 
-.modal-actions button{
-  flex:1;
+/* NAV */
+
+nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    background:rgba(255,253,248,.96);
+    border-top:1px solid #ddd8ca;
+    display:flex;
+    justify-content:center;
+    z-index:90;
+    backdrop-filter:blur(10px);
 }
 
-.production-card{
-  background:var(--card);
-  border-radius:18px;
-  padding:16px;
-  margin-top:12px;
+.nav-inner{
+    width:100%;
+    max-width:650px;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
 }
 
-.recipe-row{
-  display:flex;
-  justify-content:space-between;
-  padding:8px 0;
-  border-bottom:1px solid #eee8db;
-  font-size:14px;
+.nav-btn{
+    border:0;
+    background:none;
+    padding:10px 4px 12px;
+    color:#85857d;
+    font-size:11px;
 }
+
+.nav-btn span{
+    display:block;
+    font-size:21px;
+    margin-bottom:3px;
+}
+
+.nav-btn.active{
+    color:var(--verde);
+    font-weight:800;
+}
+
+/* TOAST */
 
 .toast{
-  position:fixed;
-  z-index:100;
-  left:50%;
-  bottom:88px;
-  transform:translateX(-50%) translateY(20px);
-  background:var(--dark);
-  color:white;
-  padding:11px 15px;
-  border-radius:13px;
-  font-size:13px;
-  opacity:0;
-  pointer-events:none;
-  transition:.2s;
+    position:fixed;
+    left:50%;
+    bottom:92px;
+    transform:translateX(-50%) translateY(20px);
+    background:#33372f;
+    color:white;
+    padding:12px 17px;
+    border-radius:13px;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    z-index:200;
+    font-size:14px;
+    max-width:90%;
+    text-align:center;
 }
 
 .toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+/* RESPONSIVE */
+
+@media(min-width:700px){
+
+    body{
+        background:#e9e4d8;
+    }
+
+    .app{
+        box-shadow:0 0 30px rgba(0,0,0,.08);
+    }
+
 }
 
 </style>
@@ -384,52 +494,56 @@ nav button.active{
 
 <body>
 
-<main>
+<div class="app">
+
+<header>
+    <div class="logo">Torito Bakery</div>
+    <div class="subtitle">Inventario y producción</div>
+</header>
+
 
 <!-- ================= INICIO ================= -->
 
 <section id="inicio" class="screen active">
 
-<div class="brand">TORITO BAKERY</div>
-<div class="sub">Gestión de almacén</div>
+    <h1>Inicio</h1>
+    <p>Control general de Torito Bakery.</p>
 
-<div class="grid">
+    <div class="dashboard">
 
-<div class="card">
-<div class="label">Inventario</div>
-<div class="num" id="totalItems">20</div>
-<small>ingredientes</small>
-</div>
+        <div class="card">
+            <div class="card-title">Ingredientes</div>
+            <div class="card-value" id="dashboardItems">0</div>
+        </div>
 
-<div class="card">
-<div class="label">Por comprar</div>
-<div class="num" id="buyCount">0</div>
-<small>productos</small>
-</div>
+        <div class="card">
+            <div class="card-title">Por comprar</div>
+            <div class="card-value" id="dashboardBuy">0</div>
+        </div>
 
-<div class="card">
-<div class="label">Producción</div>
-<div class="num" id="productionToday">0</div>
-<small>unidades hoy</small>
-</div>
+        <div class="card">
+            <div class="card-title">Stock total</div>
+            <div class="card-value" id="dashboardStock">0</div>
+        </div>
 
-<div class="card">
-<div class="label">Alertas</div>
-<div class="num" id="alertCount">0</div>
-<small>en mínimo</small>
-</div>
+        <div class="card">
+            <div class="card-title">Producciones</div>
+            <div class="card-value" id="dashboardProduction">0</div>
+        </div>
 
-</div>
+    </div>
 
-<button class="scan" onclick="showScreen('inventario')">
-📦 Ver inventario
-</button>
+    <button class="primary" onclick="showScreen('inventario')">
+        📦 Ver inventario
+    </button>
 
-<div class="section">
-Alertas de inventario
-</div>
+    <button class="primary" onclick="showScreen('escanear')">
+        📷 Escanear producto
+    </button>
 
-<div id="homeAlerts"></div>
+    <button class="primary" onclick="showScreen('produccion')">
+        🥐 Registrar producción
+    </button>
 
 </section>
 
@@ -438,37 +552,20 @@ Alertas de inventario
 
 <section id="inventario" class="screen">
 
-<button class="back" onclick="showScreen('inicio')">
-‹ Inicio
-</button>
+    <h1>Inventario</h1>
 
-<div class="brand">
-Inventario
-</div>
+    <input
+        id="searchInventory"
+        class="search"
+        placeholder="Buscar ingrediente..."
+        oninput="renderInventory()"
+    >
 
-<div class="sub">
-Existencias de Torito Bakery
-</div>
+    <button class="primary" onclick="openAddItem()">
+        + Agregar ingrediente
+    </button>
 
-<div class="toolbar">
-
-<input
-id="searchInput"
-class="search"
-placeholder="Buscar ingrediente..."
-oninput="renderInventory()"
->
-
-<button
-class="mini-btn"
-onclick="openAddItem()"
->
-＋
-</button>
-
-</div>
-
-<div id="inventoryList" class="inventory-list"></div>
+    <div id="inventoryList"></div>
 
 </section>
 
@@ -477,42 +574,64 @@ onclick="openAddItem()"
 
 <section id="escanear" class="screen">
 
-<button class="back" onclick="showScreen('inicio')">
-‹ Inicio
-</button>
+    <h1>Escanear</h1>
 
-<div class="brand">
-Escanear
-</div>
+    <p>
+        Apunta la cámara al código de barras del ingrediente.
+    </p>
 
-<div class="sub">
-Entradas y salidas por código de barras
-</div>
+    <div class="scanner-box">
 
-<div class="card">
+        <video
+            id="video"
+            autoplay
+            muted
+            playsinline>
+        </video>
 
-<div style="font-size:42px;text-align:center">
-▦
-</div>
+        <div class="scan-overlay">
+            <div class="scan-frame"></div>
+        </div>
 
-<h3 style="text-align:center">
-Escáner de productos
-</h3>
+    </div>
 
-<p style="text-align:center;opacity:.7">
-La cámara del iPhone se conectará en la siguiente versión.
-Por ahora puedes registrar entradas y salidas desde Inventario.
-</p>
+    <div id="scannerStatus" class="scanner-status">
+        Cámara apagada
+    </div>
 
-<button
-class="primary-btn"
-style="width:100%"
-onclick="showScreen('inventario')"
->
-Ir a Inventario
-</button>
+    <div class="scanner-buttons">
 
-</div>
+        <button
+            id="startCameraBtn"
+            class="primary"
+            onclick="startScanner()">
+            📷 Abrir cámara
+        </button>
+
+        <button
+            class="secondary"
+            onclick="stopScanner()">
+            ⏹ Detener
+        </button>
+
+    </div>
+
+    <div class="manual-code">
+
+        <h2>Código manual</h2>
+
+        <input
+            id="manualBarcode"
+            inputmode="numeric"
+            placeholder="Ej. 7501234567890">
+
+        <button
+            class="primary"
+            onclick="processBarcode(document.getElementById('manualBarcode').value)">
+            🔎 Buscar código
+        </button>
+
+    </div>
 
 </section>
 
@@ -521,92 +640,48 @@ Ir a Inventario
 
 <section id="produccion" class="screen">
 
-<button class="back" onclick="showScreen('inicio')">
-‹ Inicio
-</button>
+    <h1>Producción</h1>
 
-<div class="brand">
-Producción
-</div>
+    <div class="production-card">
 
-<div class="sub">
-Descuento automático de ingredientes
-</div>
+        <strong>Croissants</strong>
 
-<div class="production-card">
+        <p>
+            Receta actual: 10 croissants por lote.
+        </p>
 
-<h3 style="margin-top:0">
-🥐 Croissant
-</h3>
+        <input
+            id="croissantQty"
+            type="number"
+            min="1"
+            value="10"
+            placeholder="Cantidad">
 
-<p style="opacity:.7">
-Receta base: 10 croissants
-</p>
+        <button
+            class="primary"
+            onclick="produceCroissants()">
+            🥐 Producir
+        </button>
 
-<div class="recipe-row">
-<span>Harina</span>
-<b>0.500 kg</b>
-</div>
+        <div class="recipe">
 
-<div class="recipe-row">
-<span>Azúcar</span>
-<b>0.060 kg</b>
-</div>
+            <strong>Por cada 10 croissants:</strong>
 
-<div class="recipe-row">
-<span>Leche</span>
-<b>0.200 L</b>
-</div>
+            <br>Harina: 0.500 kg
+            <br>Azúcar: 0.060 kg
+            <br>Leche: 0.200 kg
+            <br>Levadura: 0.018 kg
+            <br>Agua: 0.050 kg
+            <br>Sal: 0.010 kg
+            <br>Mantequilla: 0.330 kg
 
-<div class="recipe-row">
-<span>Levadura</span>
-<b>0.018 kg</b>
-</div>
+        </div>
 
-<div class="recipe-row">
-<span>Agua</span>
-<b>0.050 L</b>
-</div>
+    </div>
 
-<div class="recipe-row">
-<span>Sal</span>
-<b>0.010 kg</b>
-</div>
+    <h2>Historial</h2>
 
-<div class="recipe-row">
-<span>Mantequilla</span>
-<b>0.330 kg</b>
-</div>
-
-<div class="field" style="margin-top:16px">
-
-<label>
-Cantidad de croissants a producir
-</label>
-
-<input
-id="productionQty"
-type="number"
-min="1"
-value="10"
->
-
-</div>
-
-<button
-class="primary-btn"
-style="width:100%"
-onclick="produceCroissants()"
->
-Registrar producción
-</button>
-
-<small>
-Para esta primera versión, los líquidos de la receta se manejan
-como equivalencia aproximada kg/L.
-</small>
-
-</div>
+    <div id="productionHistory"></div>
 
 </section>
 
@@ -615,63 +690,77 @@ como equivalencia aproximada kg/L.
 
 <section id="compras" class="screen">
 
-<button class="back" onclick="showScreen('inicio')">
-‹ Inicio
-</button>
+    <h1>Compras</h1>
 
-<div class="brand">
-Compras
-</div>
+    <p>
+        Ingredientes que están en el mínimo o por debajo.
+    </p>
 
-<div class="sub">
-Productos que necesitan reposición
-</div>
-
-<div id="purchaseList"></div>
+    <div id="purchaseList"></div>
 
 </section>
 
-</main>
+
+</div>
 
 
 <!-- ================= NAVEGACIÓN ================= -->
 
 <nav>
 
-<button
-data-screen="inicio"
-onclick="showScreen('inicio')"
->
-⌂<br>Inicio
-</button>
+<div class="nav-inner">
 
-<button
-data-screen="inventario"
-onclick="showScreen('inventario')"
->
-▣<br>Inventario
-</button>
+    <button
+        class="nav-btn active"
+        data-screen="inicio"
+        onclick="showScreen('inicio')">
 
-<button
-data-screen="escanear"
-onclick="showScreen('escanear')"
->
-▦<br>Escanear
-</button>
+        <span>⌂</span>
+        Inicio
 
-<button
-data-screen="produccion"
-onclick="showScreen('produccion')"
->
-🥐<br>Producción
-</button>
+    </button>
 
-<button
-data-screen="compras"
-onclick="showScreen('compras')"
->
-🛒<br>Compras
-</button>
+    <button
+        class="nav-btn"
+        data-screen="inventario"
+        onclick="showScreen('inventario')">
+
+        <span>📦</span>
+        Inventario
+
+    </button>
+
+    <button
+        class="nav-btn"
+        data-screen="escanear"
+        onclick="showScreen('escanear')">
+
+        <span>📷</span>
+        Escanear
+
+    </button>
+
+    <button
+        class="nav-btn"
+        data-screen="produccion"
+        onclick="showScreen('produccion')">
+
+        <span>🥐</span>
+        Producción
+
+    </button>
+
+    <button
+        class="nav-btn"
+        data-screen="compras"
+        onclick="showScreen('compras')">
+
+        <span>🛒</span>
+        Compras
+
+    </button>
+
+</div>
 
 </nav>
 
@@ -680,150 +769,232 @@ onclick="showScreen('compras')"
 
 <div id="stockModal" class="modal">
 
-<div class="sheet">
+    <div class="modal-content">
 
-<h3 id="modalTitle">
-Modificar inventario
-</h3>
+        <h2 id="stockModalTitle">
+            Movimiento
+        </h2>
 
-<div class="field">
+        <input
+            id="stockAmount"
+            type="number"
+            min="0"
+            step="0.001"
+            placeholder="Cantidad">
 
-<label>
-Ingrediente
-</label>
+        <div class="modal-actions">
 
-<input
-id="modalName"
-disabled
->
+            <button
+                class="secondary"
+                onclick="closeModal()">
+                Cancelar
+            </button>
 
-</div>
+            <button
+                class="primary"
+                onclick="confirmStockChange()">
+                Guardar
+            </button>
 
-<div class="field">
+        </div>
 
-<label>
-Cantidad
-</label>
-
-<input
-id="modalQty"
-type="number"
-step="0.001"
-min="0"
->
-
-</div>
-
-<div class="modal-actions">
-
-<button
-class="mini-btn"
-onclick="closeModal()"
->
-Cancelar
-</button>
-
-<button
-id="modalSave"
-class="primary-btn"
->
-Guardar
-</button>
-
-</div>
-
-</div>
+    </div>
 
 </div>
 
 
-<!-- ================= MODAL NUEVO ================= -->
+<!-- ================= MODAL AGREGAR ================= -->
 
 <div id="addModal" class="modal">
 
-<div class="sheet">
+    <div class="modal-content">
 
-<h3>
-Agregar ingrediente
-</h3>
+        <h2>Nuevo ingrediente</h2>
 
-<div class="field">
+        <label>Nombre</label>
 
-<label>
-Nombre
-</label>
+        <input
+            id="newName"
+            placeholder="Ej. Harina">
 
-<input
-id="newName"
-placeholder="Ej. Vainilla"
->
+        <label>Unidad</label>
 
-</div>
+        <select id="newUnit">
 
-<div class="field">
+            <option value="kg">kg</option>
+            <option value="L">L</option>
+            <option value="pz">pz</option>
 
-<label>
-Existencia inicial
-</label>
+        </select>
 
-<input
-id="newStock"
-type="number"
-step="0.001"
-min="0"
-value="0"
->
+        <label>Stock actual</label>
 
-</div>
+        <input
+            id="newStock"
+            type="number"
+            min="0"
+            step="0.001">
 
-<div class="field">
+        <label>Stock mínimo</label>
 
-<label>
-Unidad
-</label>
+        <input
+            id="newMin"
+            type="number"
+            min="0"
+            step="0.001">
 
-<input
-id="newUnit"
-placeholder="kg, L, piezas..."
->
+        <label>Código de barras</label>
 
-</div>
+        <input
+            id="newBarcode"
+            inputmode="numeric"
+            placeholder="Opcional">
 
-<div class="field">
+        <label>Precio de compra</label>
 
-<label>
-Mínimo
-</label>
+        <input
+            id="newPrice"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="Opcional">
 
-<input
-id="newMin"
-type="number"
-step="0.001"
-min="0"
-value="0"
->
+        <div class="modal-actions">
 
-</div>
+            <button
+                class="secondary"
+                onclick="closeAddModal()">
+                Cancelar
+            </button>
 
-<div class="modal-actions">
+            <button
+                class="primary"
+                onclick="addItem()">
+                Guardar
+            </button>
 
-<button
-class="mini-btn"
-onclick="closeAddModal()"
->
-Cancelar
-</button>
+        </div>
 
-<button
-class="primary-btn"
-onclick="addItem()"
->
-Agregar
-</button>
+    </div>
 
 </div>
 
+
+<!-- ================= MODAL PRODUCTO ESCANEADO ================= -->
+
+<div id="scanProductModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2 id="scanProductTitle">
+            Producto encontrado
+        </h2>
+
+        <p id="scanProductInfo"></p>
+
+        <div class="modal-actions">
+
+            <button
+                class="primary"
+                onclick="scanEntry()">
+                ➕ Entrada
+            </button>
+
+            <button
+                class="danger"
+                onclick="scanExit()">
+                ➖ Salida
+            </button>
+
+        </div>
+
+        <button
+            class="secondary"
+            style="width:100%;margin-top:10px"
+            onclick="closeScanProductModal()">
+            Cerrar
+        </button>
+
+    </div>
+
 </div>
+
+
+<!-- ================= MODAL CÓDIGO NUEVO ================= -->
+
+<div id="newBarcodeModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2>Nuevo código</h2>
+
+        <p>
+            Este código todavía no está registrado.
+        </p>
+
+        <input
+            id="unknownBarcode"
+            readonly>
+
+        <label>Ingrediente</label>
+
+        <input
+            id="unknownName"
+            placeholder="Ej. Harina">
+
+        <label>Unidad</label>
+
+        <select id="unknownUnit">
+
+            <option value="kg">kg</option>
+            <option value="L">L</option>
+            <option value="pz">pz</option>
+
+        </select>
+
+        <label>Stock actual</label>
+
+        <input
+            id="unknownStock"
+            type="number"
+            value="0"
+            min="0"
+            step="0.001">
+
+        <label>Stock mínimo</label>
+
+        <input
+            id="unknownMin"
+            type="number"
+            value="0"
+            min="0"
+            step="0.001">
+
+        <label>Precio de compra</label>
+
+        <input
+            id="unknownPrice"
+            type="number"
+            min="0"
+            step="0.01">
+
+        <div class="modal-actions">
+
+            <button
+                class="secondary"
+                onclick="closeNewBarcodeModal()">
+                Cancelar
+            </button>
+
+            <button
+                class="primary"
+                onclick="registerUnknownBarcode()">
+                Registrar
+            </button>
+
+        </div>
+
+    </div>
 
 </div>
 
@@ -833,1095 +1004,1488 @@ Agregar
 
 <script>
 
-/* ==========================================
-   INVENTARIO INICIAL TORITO BAKERY
-========================================== */
+/* =========================================================
+   DATOS
+========================================================= */
 
 const defaultInventory = [
 
 {
-id:"azucar",
-name:"Azúcar",
-stock:11,
-unit:"kg",
-min:5
+    id:"azucar",
+    name:"Azúcar",
+    stock:11,
+    unit:"kg",
+    min:5,
+    price:16.80,
+    barcode:""
 },
 
 {
-id:"azucar-mascabado",
-name:"Azúcar mascabado",
-stock:5,
-unit:"kg",
-min:2
+    id:"mascabado",
+    name:"Azúcar mascabado",
+    stock:5,
+    unit:"kg",
+    min:2,
+    price:40,
+    barcode:""
 },
 
 {
-id:"azucar-glas",
-name:"Azúcar glas",
-stock:2,
-unit:"kg",
-min:1
+    id:"glas",
+    name:"Azúcar glas",
+    stock:2,
+    unit:"kg",
+    min:1,
+    price:56,
+    barcode:""
 },
 
 {
-id:"chocolate",
-name:"Chocolate",
-stock:5,
-unit:"kg",
-min:1
+    id:"chocolate",
+    name:"Chocolate",
+    stock:5,
+    unit:"kg",
+    min:1,
+    price:200,
+    barcode:""
 },
 
 {
-id:"cocoa",
-name:"Cocoa",
-stock:1.5,
-unit:"kg",
-min:.5
+    id:"cocoa",
+    name:"Cocoa",
+    stock:1.5,
+    unit:"kg",
+    min:.5,
+    price:290,
+    barcode:""
 },
 
 {
-id:"arandanos",
-name:"Arándanos",
-stock:.5,
-unit:"kg",
-min:.5
+    id:"arandanos",
+    name:"Arándanos",
+    stock:.5,
+    unit:"kg",
+    min:.5,
+    price:100,
+    barcode:""
 },
 
 {
-id:"nueces",
-name:"Nueces",
-stock:1.5,
-unit:"kg",
-min:1
+    id:"nueces",
+    name:"Nueces",
+    stock:1.5,
+    unit:"kg",
+    min:1,
+    price:236.36,
+    barcode:""
 },
 
 {
-id:"avellanas",
-name:"Avellanas",
-stock:.35,
-unit:"kg",
-min:.5
+    id:"avellanas",
+    name:"Avellanas",
+    stock:.35,
+    unit:"kg",
+    min:.5,
+    price:290,
+    barcode:""
 },
 
 {
-id:"nuez-india",
-name:"Nuez de la India",
-stock:0,
-unit:"kg",
-min:.5
+    id:"nuezindia",
+    name:"Nuez de la India",
+    stock:0,
+    unit:"kg",
+    min:.5,
+    price:280,
+    barcode:""
 },
 
 {
-id:"mermelada",
-name:"Mermelada",
-stock:.45,
-unit:"kg",
-min:.2
+    id:"mermelada",
+    name:"Mermelada",
+    stock:.45,
+    unit:"kg",
+    min:.2,
+    price:111.11,
+    barcode:""
 },
 
 {
-id:"huevo",
-name:"Huevo",
-stock:25,
-unit:"piezas",
-min:30
+    id:"huevo",
+    name:"Huevo",
+    stock:25,
+    unit:"pz",
+    min:30,
+    price:2.13,
+    barcode:""
 },
 
 {
-id:"philadelphia",
-name:"Queso Philadelphia",
-stock:1.14,
-unit:"kg",
-min:.76
+    id:"philadelphia",
+    name:"Queso Philadelphia",
+    stock:1.14,
+    unit:"kg",
+    min:.76,
+    price:157.89,
+    barcode:""
 },
 
 {
-id:"levadura",
-name:"Levadura",
-stock:0,
-unit:"kg",
-min:.4
+    id:"levadura",
+    name:"Levadura",
+    stock:0,
+    unit:"kg",
+    min:.4,
+    price:50,
+    barcode:""
 },
 
 {
-id:"leche",
-name:"Leche",
-stock:5,
-unit:"L",
-min:3
+    id:"leche",
+    name:"Leche",
+    stock:5,
+    unit:"L",
+    min:3,
+    price:24,
+    barcode:""
 },
 
 {
-id:"crema",
-name:"Crema para batir",
-stock:1,
-unit:"L",
-min:1.5
+    id:"crema",
+    name:"Crema para batir",
+    stock:1,
+    unit:"L",
+    min:1.5,
+    price:120,
+    barcode:""
 },
 
 {
-id:"mantequilla",
-name:"Mantequilla",
-stock:8,
-unit:"kg",
-min:5
+    id:"mantequilla",
+    name:"Mantequilla",
+    stock:8,
+    unit:"kg",
+    min:5,
+    price:127.78,
+    barcode:""
 },
 
 {
-id:"harina",
-name:"Harina",
-stock:6,
-unit:"kg",
-min:6
+    id:"harina",
+    name:"Harina",
+    stock:6,
+    unit:"kg",
+    min:6,
+    price:20.20,
+    barcode:""
 },
 
 {
-id:"agua",
-name:"Agua",
-stock:10,
-unit:"L",
-min:5
+    id:"agua",
+    name:"Agua",
+    stock:10,
+    unit:"L",
+    min:5,
+    price:1.58,
+    barcode:""
 },
 
 {
-id:"sal",
-name:"Sal",
-stock:.5,
-unit:"kg",
-min:.5
-},
-
-{
-id:"miel",
-name:"Miel",
-stock:0,
-unit:"kg",
-min:0
+    id:"sal",
+    name:"Sal",
+    stock:.5,
+    unit:"kg",
+    min:.5,
+    price:25,
+    barcode:""
 }
 
 ];
 
 
-/* ==========================================
-   GUARDADO LOCAL
-========================================== */
+/* =========================================================
+   LOCAL STORAGE
+========================================================= */
 
 let inventory =
-JSON.parse(localStorage.getItem("torito_inventory"))
-|| defaultInventory;
+JSON.parse(localStorage.getItem("toritoInventory")) ||
+defaultInventory;
 
 let productionLog =
-JSON.parse(localStorage.getItem("torito_production"))
-|| [];
+JSON.parse(localStorage.getItem("toritoProduction")) ||
+[];
+
+let selectedStockItem = null;
+let selectedStockMode = null;
+
+let selectedScanItem = null;
+
+let mediaStream = null;
+let scannerTimer = null;
+
+let barcodeDetector = null;
 
 
-function saveData(){
-
-localStorage.setItem(
-"torito_inventory",
-JSON.stringify(inventory)
-);
-
-localStorage.setItem(
-"torito_production",
-JSON.stringify(productionLog)
-);
-
-}
-
-
-/* ==========================================
+/* =========================================================
    NAVEGACIÓN
-========================================== */
+========================================================= */
 
 function showScreen(screen){
 
-document
-.querySelectorAll(".screen")
-.forEach(s=>s.classList.remove("active"));
+    document.querySelectorAll(".screen")
+    .forEach(s => s.classList.remove("active"));
 
-const target =
-document.getElementById(screen);
+    document.getElementById(screen)
+    .classList.add("active");
 
-if(target){
-target.classList.add("active");
-}
+    document.querySelectorAll(".nav-btn")
+    .forEach(btn => {
 
-document
-.querySelectorAll("nav button")
-.forEach(button=>{
+        btn.classList.toggle(
+            "active",
+            btn.dataset.screen === screen
+        );
 
-button.classList.toggle(
-"active",
-button.dataset.screen===screen
-);
+    });
 
-});
+    if(screen !== "escanear"){
+        stopScanner();
+    }
 
-if(screen==="inventario"){
-renderInventory();
-}
+    updateDashboard();
 
-if(screen==="compras"){
-renderPurchases();
-}
+    if(screen === "inventario"){
+        renderInventory();
+    }
 
-updateDashboard();
+    if(screen === "compras"){
+        renderPurchases();
+    }
 
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
+    if(screen === "produccion"){
+        renderProductionHistory();
+    }
 
 }
 
 
-/* ==========================================
-   ESTADO DEL INVENTARIO
-========================================== */
+/* =========================================================
+   GUARDAR
+========================================================= */
+
+function saveData(){
+
+    localStorage.setItem(
+        "toritoInventory",
+        JSON.stringify(inventory)
+    );
+
+    localStorage.setItem(
+        "toritoProduction",
+        JSON.stringify(productionLog)
+    );
+
+}
+
+
+/* =========================================================
+   ESTADOS
+========================================================= */
 
 function statusOf(item){
 
-if(item.stock<=0){
-return "buy";
+    if(item.stock <= 0){
+        return "empty";
+    }
+
+    if(item.stock <= item.min){
+        return "low";
+    }
+
+    return "ok";
 }
-
-if(item.stock<=item.min){
-return "warn";
-}
-
-return "good";
-
-}
-
 
 function statusText(item){
 
-if(item.stock<=0){
-return "Comprar ahora";
+    const status = statusOf(item);
+
+    if(status === "empty"){
+        return "Agotado";
+    }
+
+    if(status === "low"){
+        return "Reponer";
+    }
+
+    return "Disponible";
 }
 
-if(item.stock<=item.min){
-return "Reponer";
-}
 
-return "Stock suficiente";
-
-}
-
-
-/* ==========================================
-   RENDER INVENTARIO
-========================================== */
+/* =========================================================
+   INVENTARIO
+========================================================= */
 
 function renderInventory(){
 
-const list =
-document.getElementById("inventoryList");
+    const container =
+        document.getElementById("inventoryList");
 
-const search =
-document.getElementById("searchInput");
+    const search =
+        document.getElementById("searchInventory")
+        .value
+        .toLowerCase()
+        .trim();
 
-const q =
-(search.value||"")
-.toLowerCase()
-.trim();
+    const filtered =
+        inventory.filter(item =>
+            item.name.toLowerCase().includes(search) ||
+            (item.barcode || "").includes(search)
+        );
 
-const filtered =
-inventory.filter(item=>
-item.name
-.toLowerCase()
-.includes(q)
-);
+    if(!filtered.length){
 
-if(!filtered.length){
+        container.innerHTML = `
+            <div class="card">
+                No se encontraron ingredientes.
+            </div>
+        `;
 
-list.innerHTML=
-'<div class="empty">No encontramos ese ingrediente.</div>';
+        return;
+    }
 
-return;
+    container.innerHTML =
+        filtered.map(item => {
 
-}
+            const status = statusOf(item);
 
+            return `
 
-list.innerHTML =
-filtered.map(item=>`
+            <div class="inventory-item">
 
-<div class="item">
+                <div class="item-top">
 
-<div class="item-top">
+                    <div>
 
-<div>
+                        <div class="item-name">
+                            ${escapeHtml(item.name)}
+                        </div>
 
-<div class="item-name">
-${escapeHtml(item.name)}
-</div>
+                        ${
+                            item.barcode
+                            ?
+                            `<div class="item-code">
+                                Código: ${escapeHtml(item.barcode)}
+                            </div>`
+                            :
+                            `<div class="item-code">
+                                Sin código de barras
+                            </div>`
+                        }
 
-<div class="meta">
-Mínimo:
-${formatNumber(item.min)}
-${escapeHtml(item.unit)}
-</div>
+                    </div>
 
-</div>
+                    <div class="stock ${status !== "ok" ? "low" : ""}">
+                        ${formatNumber(item.stock)} ${item.unit}
+                    </div>
 
-<div class="stock">
+                </div>
 
-${formatNumber(item.stock)}
-${escapeHtml(item.unit)}
+                <div class="stock-row">
+                    Mínimo:
+                    ${formatNumber(item.min)} ${item.unit}
+                </div>
 
-</div>
+                <span class="badge ${status}">
+                    ${statusText(item)}
+                </span>
 
-</div>
+                <div class="item-actions">
 
+                    <button
+                        class="secondary"
+                        onclick="changeStock('${item.id}','in')">
+                        ➕ Entrada
+                    </button>
 
-<span class="status ${statusOf(item)}">
+                    <button
+                        class="secondary"
+                        onclick="changeStock('${item.id}','out')">
+                        ➖ Salida
+                    </button>
 
-${statusText(item)}
+                    <button
+                        class="secondary"
+                        onclick="editStock('${item.id}')">
+                        ✏️
+                    </button>
 
-</span>
+                </div>
 
+            </div>
 
-<div class="actions">
+            `;
 
-<button
-class="mini-btn"
-onclick="changeStock('${item.id}','out')"
->
-➖ Salida
-</button>
-
-<button
-class="mini-btn"
-onclick="changeStock('${item.id}','in')"
->
-➕ Entrada
-</button>
-
-<button
-class="mini-btn"
-onclick="editStock('${item.id}')"
->
-✏️ Editar
-</button>
-
-</div>
-
-</div>
-
-`).join("");
-
-}
-
-
-/* ==========================================
-   ENTRADAS / SALIDAS
-========================================== */
-
-function changeStock(id,type){
-
-const item =
-inventory.find(x=>x.id===id);
-
-if(!item)return;
-
-
-document.getElementById("modalTitle").textContent =
-type==="in"
-? "Registrar entrada"
-: "Registrar salida";
-
-
-document.getElementById("modalName").value =
-item.name;
-
-document.getElementById("modalQty").value="";
-
-document
-.getElementById("stockModal")
-.classList.add("show");
-
-
-document.getElementById("modalSave").onclick=()=>{
-
-const qty =
-Number(
-document.getElementById("modalQty").value
-);
-
-
-if(!qty || qty<=0){
-
-showToast("Escribe una cantidad válida.");
-
-return;
+        }).join("");
 
 }
 
 
-if(type==="out" && qty>item.stock){
+/* =========================================================
+   STOCK
+========================================================= */
 
-showToast("No hay suficiente existencia.");
+function changeStock(id, mode){
 
-return;
+    selectedStockItem =
+        inventory.find(item => item.id === id);
 
-}
+    selectedStockMode = mode;
 
+    document.getElementById("stockModalTitle")
+        .textContent =
+        mode === "in"
+        ? `Entrada — ${selectedStockItem.name}`
+        : `Salida — ${selectedStockItem.name}`;
 
-if(type==="in"){
+    document.getElementById("stockAmount").value = "";
 
-item.stock += qty;
-
-}else{
-
-item.stock -= qty;
-
-}
-
-
-saveData();
-
-closeModal();
-
-renderInventory();
-
-updateDashboard();
-
-showToast("Inventario actualizado.");
-
-};
+    document.getElementById("stockModal")
+        .classList.add("active");
 
 }
 
+function confirmStockChange(){
 
-/* ==========================================
-   EDITAR EXISTENCIA
-========================================== */
+    const amount =
+        parseFloat(
+            document.getElementById("stockAmount").value
+        );
+
+    if(!amount || amount <= 0){
+        showToast("Escribe una cantidad válida.");
+        return;
+    }
+
+    if(selectedStockMode === "in"){
+
+        selectedStockItem.stock += amount;
+
+        showToast("Entrada registrada.");
+
+    }else{
+
+        if(amount > selectedStockItem.stock){
+
+            showToast("No hay suficiente stock.");
+
+            return;
+        }
+
+        selectedStockItem.stock -= amount;
+
+        showToast("Salida registrada.");
+    }
+
+    saveData();
+    closeModal();
+    renderInventory();
+    updateDashboard();
+
+}
 
 function editStock(id){
 
-const item =
-inventory.find(x=>x.id===id);
+    const item =
+        inventory.find(x => x.id === id);
 
-if(!item)return;
+    const newValue =
+        prompt(
+            `Nuevo stock de ${item.name}`,
+            item.stock
+        );
 
+    if(newValue === null){
+        return;
+    }
 
-document.getElementById("modalTitle").textContent =
-"Editar existencia";
+    const value =
+        parseFloat(newValue);
 
-document.getElementById("modalName").value =
-item.name;
+    if(isNaN(value) || value < 0){
+        showToast("Cantidad inválida.");
+        return;
+    }
 
-document.getElementById("modalQty").value =
-item.stock;
+    item.stock = value;
 
-document
-.getElementById("stockModal")
-.classList.add("show");
+    saveData();
+    renderInventory();
+    updateDashboard();
 
-
-document.getElementById("modalSave").onclick=()=>{
-
-const qty =
-Number(
-document.getElementById("modalQty").value
-);
-
-
-if(isNaN(qty)||qty<0){
-
-showToast("Escribe una cantidad válida.");
-
-return;
+    showToast("Stock actualizado.");
 
 }
 
 
-item.stock=qty;
-
-saveData();
-
-closeModal();
-
-renderInventory();
-
-updateDashboard();
-
-showToast("Existencia modificada.");
-
-};
-
-}
-
-
-function closeModal(){
-
-document
-.getElementById("stockModal")
-.classList.remove("show");
-
-}
-
-
-/* ==========================================
+/* =========================================================
    AGREGAR INGREDIENTE
-========================================== */
+========================================================= */
 
 function openAddItem(){
 
-document
-.getElementById("addModal")
-.classList.add("show");
+    document.getElementById("newName").value = "";
+    document.getElementById("newStock").value = "";
+    document.getElementById("newMin").value = "";
+    document.getElementById("newBarcode").value = "";
+    document.getElementById("newPrice").value = "";
+
+    document.getElementById("addModal")
+        .classList.add("active");
 
 }
-
 
 function closeAddModal(){
 
-document
-.getElementById("addModal")
-.classList.remove("show");
+    document.getElementById("addModal")
+        .classList.remove("active");
 
 }
-
 
 function addItem(){
 
-const name =
-document.getElementById("newName")
-.value.trim();
+    const name =
+        document.getElementById("newName")
+        .value.trim();
 
-const stock =
-Number(
-document.getElementById("newStock").value
-);
+    const unit =
+        document.getElementById("newUnit")
+        .value;
 
-const unit =
-document.getElementById("newUnit")
-.value.trim()
-||"kg";
+    const stock =
+        parseFloat(
+            document.getElementById("newStock").value
+        ) || 0;
 
-const min =
-Number(
-document.getElementById("newMin").value
-);
+    const min =
+        parseFloat(
+            document.getElementById("newMin").value
+        ) || 0;
 
+    const barcode =
+        document.getElementById("newBarcode")
+        .value.trim();
 
-if(!name){
+    const price =
+        parseFloat(
+            document.getElementById("newPrice").value
+        ) || 0;
 
-showToast("Escribe el nombre.");
+    if(!name){
 
-return;
+        showToast("Escribe el nombre.");
+
+        return;
+    }
+
+    if(barcode){
+
+        const exists =
+            inventory.some(
+                item => item.barcode === barcode
+            );
+
+        if(exists){
+
+            showToast(
+                "Ese código ya está registrado."
+            );
+
+            return;
+        }
+    }
+
+    inventory.push({
+
+        id:
+            slugify(name) +
+            "-" +
+            Date.now(),
+
+        name,
+        stock,
+        unit,
+        min,
+        price,
+        barcode
+
+    });
+
+    saveData();
+
+    closeAddModal();
+
+    renderInventory();
+
+    updateDashboard();
+
+    showToast("Ingrediente agregado.");
 
 }
 
 
-inventory.push({
+/* =========================================================
+   ESCÁNER
+========================================================= */
 
-id:
-slugify(name)
-+"-"
-+Date.now(),
+async function startScanner(){
 
-name:name,
+    const status =
+        document.getElementById("scannerStatus");
 
-stock:
-isNaN(stock)
-?0
-:stock,
+    if(!navigator.mediaDevices ||
+       !navigator.mediaDevices.getUserMedia){
 
-unit:unit,
+        status.textContent =
+            "Tu navegador no permite usar la cámara.";
 
-min:
-isNaN(min)
-?0
-:min
+        showToast(
+            "No se puede acceder a la cámara."
+        );
 
-});
+        return;
+    }
 
+    try{
 
-saveData();
+        stopScanner();
 
-closeAddModal();
+        mediaStream =
+            await navigator.mediaDevices.getUserMedia({
 
-document.getElementById("newName").value="";
-document.getElementById("newStock").value="0";
-document.getElementById("newUnit").value="";
-document.getElementById("newMin").value="0";
+                video:{
+                    facingMode:{
+                        ideal:"environment"
+                    }
+                },
 
-renderInventory();
+                audio:false
 
-updateDashboard();
+            });
 
-showToast("Ingrediente agregado.");
+        const video =
+            document.getElementById("video");
+
+        video.srcObject = mediaStream;
+
+        await video.play();
+
+        status.textContent =
+            "📷 Cámara activa. Apunta al código.";
+
+        if("BarcodeDetector" in window){
+
+            try{
+
+                barcodeDetector =
+                    new BarcodeDetector({
+
+                        formats:[
+                            "ean_13",
+                            "ean_8",
+                            "upc_a",
+                            "upc_e",
+                            "code_128",
+                            "code_39",
+                            "itf",
+                            "codabar"
+                        ]
+
+                    });
+
+                scanBarcodeLoop();
+
+            }catch(error){
+
+                barcodeDetector = null;
+
+                status.textContent =
+                    "Cámara activa. Usa el campo manual si no detecta el código.";
+
+            }
+
+        }else{
+
+            status.textContent =
+                "Cámara activa. Introduce el código manualmente.";
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+        status.textContent =
+            "No se pudo abrir la cámara.";
+
+        showToast(
+            "Debes permitir el acceso a la cámara."
+        );
+
+    }
 
 }
 
 
-/* ==========================================
+async function scanBarcodeLoop(){
+
+    if(!mediaStream ||
+       !barcodeDetector){
+
+        return;
+    }
+
+    const video =
+        document.getElementById("video");
+
+    try{
+
+        if(video.readyState >= 2){
+
+            const codes =
+                await barcodeDetector.detect(video);
+
+            if(codes.length){
+
+                const value =
+                    codes[0].rawValue;
+
+                if(value){
+
+                    processBarcode(value);
+
+                    stopScanner();
+
+                    return;
+                }
+
+            }
+
+        }
+
+    }catch(error){
+
+        console.log(
+            "Error leyendo código:",
+            error
+        );
+
+    }
+
+    scannerTimer =
+        setTimeout(
+            scanBarcodeLoop,
+            300
+        );
+
+}
+
+
+function stopScanner(){
+
+    if(scannerTimer){
+
+        clearTimeout(scannerTimer);
+        scannerTimer = null;
+
+    }
+
+    if(mediaStream){
+
+        mediaStream
+        .getTracks()
+        .forEach(track => track.stop());
+
+        mediaStream = null;
+
+    }
+
+    const video =
+        document.getElementById("video");
+
+    if(video){
+
+        video.srcObject = null;
+
+    }
+
+    const status =
+        document.getElementById("scannerStatus");
+
+    if(status){
+
+        status.textContent =
+            "Cámara apagada";
+
+    }
+
+}
+
+
+/* =========================================================
+   PROCESAR CÓDIGO
+========================================================= */
+
+function processBarcode(rawCode){
+
+    const code =
+        String(rawCode || "")
+        .trim();
+
+    if(!code){
+
+        showToast(
+            "Escribe o escanea un código."
+        );
+
+        return;
+    }
+
+    const item =
+        inventory.find(
+            product =>
+                String(product.barcode || "") === code
+        );
+
+    if(item){
+
+        selectedScanItem = item;
+
+        document.getElementById(
+            "scanProductTitle"
+        ).textContent =
+            item.name;
+
+        document.getElementById(
+            "scanProductInfo"
+        ).innerHTML = `
+
+            <strong>Código:</strong>
+            ${escapeHtml(code)}
+            <br><br>
+
+            <strong>Stock:</strong>
+            ${formatNumber(item.stock)}
+            ${item.unit}
+
+            <br>
+
+            <strong>Mínimo:</strong>
+            ${formatNumber(item.min)}
+            ${item.unit}
+
+        `;
+
+        document.getElementById(
+            "scanProductModal"
+        ).classList.add("active");
+
+        return;
+    }
+
+    document.getElementById(
+        "unknownBarcode"
+    ).value = code;
+
+    document.getElementById(
+        "unknownName"
+    ).value = "";
+
+    document.getElementById(
+        "unknownStock"
+    ).value = "0";
+
+    document.getElementById(
+        "unknownMin"
+    ).value = "0";
+
+    document.getElementById(
+        "unknownPrice"
+    ).value = "";
+
+    document.getElementById(
+        "newBarcodeModal"
+    ).classList.add("active");
+
+}
+
+
+/* =========================================================
+   PRODUCTO ESCANEADO
+========================================================= */
+
+function scanEntry(){
+
+    if(!selectedScanItem){
+        return;
+    }
+
+    closeScanProductModal();
+
+    changeStock(
+        selectedScanItem.id,
+        "in"
+    );
+
+}
+
+
+function scanExit(){
+
+    if(!selectedScanItem){
+        return;
+    }
+
+    closeScanProductModal();
+
+    changeStock(
+        selectedScanItem.id,
+        "out"
+    );
+
+}
+
+
+function closeScanProductModal(){
+
+    document.getElementById(
+        "scanProductModal"
+    ).classList.remove("active");
+
+    selectedScanItem = null;
+
+}
+
+
+/* =========================================================
+   NUEVO CÓDIGO
+========================================================= */
+
+function registerUnknownBarcode(){
+
+    const barcode =
+        document.getElementById(
+            "unknownBarcode"
+        ).value.trim();
+
+    const name =
+        document.getElementById(
+            "unknownName"
+        ).value.trim();
+
+    const unit =
+        document.getElementById(
+            "unknownUnit"
+        ).value;
+
+    const stock =
+        parseFloat(
+            document.getElementById(
+                "unknownStock"
+            ).value
+        ) || 0;
+
+    const min =
+        parseFloat(
+            document.getElementById(
+                "unknownMin"
+            ).value
+        ) || 0;
+
+    const price =
+        parseFloat(
+            document.getElementById(
+                "unknownPrice"
+            ).value
+        ) || 0;
+
+    if(!name){
+
+        showToast(
+            "Escribe el nombre del ingrediente."
+        );
+
+        return;
+    }
+
+    if(
+        inventory.some(
+            item =>
+                String(item.barcode || "") === barcode
+        )
+    ){
+
+        showToast(
+            "Ese código ya existe."
+        );
+
+        return;
+    }
+
+    inventory.push({
+
+        id:
+            slugify(name) +
+            "-" +
+            Date.now(),
+
+        name,
+        stock,
+        unit,
+        min,
+        price,
+        barcode
+
+    });
+
+    saveData();
+
+    closeNewBarcodeModal();
+
+    renderInventory();
+
+    updateDashboard();
+
+    showToast(
+        `${name} registrado correctamente.`
+    );
+
+}
+
+
+function closeNewBarcodeModal(){
+
+    document.getElementById(
+        "newBarcodeModal"
+    ).classList.remove("active");
+
+}
+
+
+/* =========================================================
    PRODUCCIÓN
-========================================== */
+========================================================= */
+
+const croissantRecipe = {
+
+    harina:.500,
+    azucar:.060,
+    leche:.200,
+    levadura:.018,
+    agua:.050,
+    sal:.010,
+    mantequilla:.330
+
+};
+
 
 function produceCroissants(){
 
-const qty =
-Number(
-document.getElementById("productionQty").value
-);
+    const quantity =
+        parseInt(
+            document.getElementById(
+                "croissantQty"
+            ).value
+        );
 
+    if(!quantity || quantity <= 0){
 
-if(!qty || qty<=0){
+        showToast(
+            "Escribe una cantidad válida."
+        );
 
-showToast("Escribe una cantidad válida.");
+        return;
+    }
 
-return;
+    const batches =
+        quantity / 10;
 
-}
+    const deductions = {
 
+        harina:
+            croissantRecipe.harina * batches,
 
-/*
-Receta base:
+        azucar:
+            croissantRecipe.azucar * batches,
 
-10 croissants
+        leche:
+            croissantRecipe.leche * batches,
 
-Harina       0.500 kg
-Azúcar       0.060 kg
-Leche        0.200 L
-Levadura     0.018 kg
-Agua         0.050 L
-Sal          0.010 kg
-Mantequilla  0.330 kg
-*/
+        levadura:
+            croissantRecipe.levadura * batches,
 
-const batches =
-qty/10;
+        agua:
+            croissantRecipe.agua * batches,
 
+        sal:
+            croissantRecipe.sal * batches,
 
-const recipe={
+        mantequilla:
+            croissantRecipe.mantequilla * batches
 
-harina:.5,
+    };
 
-azucar:.06,
+    for(const id in deductions){
 
-leche:.2,
+        const item =
+            inventory.find(
+                product => product.id === id
+            );
 
-levadura:.018,
+        if(!item){
 
-agua:.05,
+            showToast(
+                `No existe ${id} en inventario.`
+            );
 
-sal:.01,
+            return;
+        }
 
-mantequilla:.33
+        if(item.stock < deductions[id]){
 
-};
+            showToast(
+                `No hay suficiente ${item.name}.`
+            );
 
+            return;
+        }
 
-const needed={
+    }
 
-harina:
-recipe.harina*batches,
+    for(const id in deductions){
 
-azucar:
-recipe.azucar*batches,
+        const item =
+            inventory.find(
+                product => product.id === id
+            );
 
-leche:
-recipe.leche*batches,
+        item.stock -= deductions[id];
 
-levadura:
-recipe.levadura*batches,
+    }
 
-agua:
-recipe.agua*batches,
+    productionLog.unshift({
 
-sal:
-recipe.sal*batches,
+        date:
+            new Date().toLocaleString("es-MX"),
 
-mantequilla:
-recipe.mantequilla*batches
+        product:"Croissants",
 
-};
+        quantity
 
+    });
 
-const missing=[];
+    saveData();
 
+    renderInventory();
 
-for(
-const [id,amount]
-of Object.entries(needed)
-){
+    renderProductionHistory();
 
-const item =
-inventory.find(x=>x.id===id);
+    updateDashboard();
 
-if(!item){
-
-missing.push(id);
-
-}
-
-else if(item.stock<amount){
-
-missing.push(
-item.name+
-" (faltan "+
-formatNumber(amount-item.stock)+
-" "+
-item.unit+
-")"
-);
-
-}
+    showToast(
+        `${quantity} croissants registrados.`
+    );
 
 }
 
 
-if(missing.length){
+function renderProductionHistory(){
 
-alert(
-"No se puede registrar la producción porque falta:\n\n"+
-missing.join("\n")
-);
+    const container =
+        document.getElementById(
+            "productionHistory"
+        );
 
-return;
+    if(!productionLog.length){
 
-}
+        container.innerHTML = `
+            <div class="card">
+                Todavía no hay producciones.
+            </div>
+        `;
 
+        return;
+    }
 
-for(
-const [id,amount]
-of Object.entries(needed)
-){
+    container.innerHTML =
+        productionLog
+        .slice(0,10)
+        .map(log => `
 
-const item =
-inventory.find(x=>x.id===id);
+            <div class="inventory-item">
 
-item.stock-=amount;
+                <strong>
+                    ${escapeHtml(log.product)}
+                </strong>
 
-}
+                <div class="stock-row">
+                    ${log.quantity} piezas
+                    · ${escapeHtml(log.date)}
+                </div>
 
+            </div>
 
-productionLog.push({
-
-date:new Date().toISOString(),
-
-product:"Croissant",
-
-quantity:qty
-
-});
-
-
-saveData();
-
-updateDashboard();
-
-renderInventory();
-
-
-alert(
-"Producción registrada.\n\n"+
-qty+
-" croissants\n\n"+
-"Los ingredientes fueron descontados automáticamente."
-);
+        `)
+        .join("");
 
 }
 
 
-/* ==========================================
+/* =========================================================
    COMPRAS
-========================================== */
+========================================================= */
 
 function getLowStock(){
 
-return inventory.filter(
-item=>item.stock<=item.min
-);
+    return inventory.filter(
+        item => item.stock <= item.min
+    );
 
 }
 
 
 function renderPurchases(){
 
-const container =
-document.getElementById("purchaseList");
+    const container =
+        document.getElementById(
+            "purchaseList"
+        );
 
-const low =
-getLowStock();
+    const low =
+        getLowStock();
 
+    if(!low.length){
 
-if(!low.length){
+        container.innerHTML = `
+            <div class="card">
+                🎉 No hay ingredientes pendientes de compra.
+            </div>
+        `;
 
-container.innerHTML=
-`
-<div class="alert ok">
-<span>Todo en orden</span>
-<b>✓</b>
-</div>
-`;
+        return;
+    }
 
-return;
+    container.innerHTML =
+        low.map(item => `
 
-}
+            <div class="purchase-item">
 
+                <div>
 
-container.innerHTML =
-low.map(item=>`
+                    <strong>
+                        ${escapeHtml(item.name)}
+                    </strong>
 
-<div class="alert ${
-item.stock<=0
-?"danger"
-:"warn"
-}">
+                    <span>
+                        Stock:
+                        ${formatNumber(item.stock)}
+                        ${item.unit}
+                        · Mínimo:
+                        ${formatNumber(item.min)}
+                        ${item.unit}
+                    </span>
 
-<span>
+                </div>
 
-<b>
-${escapeHtml(item.name)}
-</b>
+                <strong>
+                    ${item.stock <= 0 ? "URGENTE" : "Reponer"}
+                </strong>
 
-<br>
+            </div>
 
-<small>
-
-${formatNumber(item.stock)}
-${escapeHtml(item.unit)}
-disponibles · mínimo
-
-${formatNumber(item.min)}
-${escapeHtml(item.unit)}
-
-</small>
-
-</span>
-
-<b>
-
-${
-item.stock<=0
-?"Comprar"
-:"Reponer"
-}
-
-</b>
-
-</div>
-
-`).join("");
+        `).join("");
 
 }
 
 
-/* ==========================================
+/* =========================================================
    DASHBOARD
-========================================== */
+========================================================= */
 
 function updateDashboard(){
 
-const low =
-getLowStock();
+    document.getElementById(
+        "dashboardItems"
+    ).textContent =
+        inventory.length;
 
-const buy =
-inventory.filter(
-item=>item.stock<=0
-);
+    document.getElementById(
+        "dashboardBuy"
+    ).textContent =
+        getLowStock().length;
 
+    const totalStock =
+        inventory.reduce(
+            (sum,item) =>
+                sum + Number(item.stock || 0),
+            0
+        );
 
-document.getElementById("totalItems")
-.textContent=inventory.length;
+    document.getElementById(
+        "dashboardStock"
+    ).textContent =
+        formatNumber(totalStock);
 
-
-document.getElementById("buyCount")
-.textContent=buy.length;
-
-
-document.getElementById("alertCount")
-.textContent=low.length;
-
-
-const today =
-new Date().toDateString();
-
-
-const todayProduction =
-productionLog
-.filter(
-x=>new Date(x.date).toDateString()===today
-)
-.reduce(
-(sum,x)=>sum+Number(x.quantity),
-0
-);
-
-
-document.getElementById("productionToday")
-.textContent=todayProduction;
-
-
-const alerts =
-low.slice(0,5);
-
-const home =
-document.getElementById("homeAlerts");
-
-
-if(!alerts.length){
-
-home.innerHTML=
-`
-<div class="alert ok">
-
-<span>
-No hay productos en mínimo.
-</span>
-
-<b>✓</b>
-
-</div>
-`;
-
-}else{
-
-home.innerHTML =
-alerts.map(item=>`
-
-<div class="alert ${
-item.stock<=0
-?"danger"
-:"warn"
-}">
-
-<span>
-${escapeHtml(item.name)}
-</span>
-
-<b>
-${
-item.stock<=0
-?"Comprar"
-:"Reponer"
-}
-</b>
-
-</div>
-
-`).join("");
-
-}
+    document.getElementById(
+        "dashboardProduction"
+    ).textContent =
+        productionLog.length;
 
 }
 
 
-/* ==========================================
+/* =========================================================
+   MODALES
+========================================================= */
+
+function closeModal(){
+
+    document.getElementById(
+        "stockModal"
+    ).classList.remove("active");
+
+    selectedStockItem = null;
+    selectedStockMode = null;
+
+}
+
+
+document.querySelectorAll(".modal")
+.forEach(modal => {
+
+    modal.addEventListener(
+        "click",
+        event => {
+
+            if(event.target === modal){
+
+                modal.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+});
+
+
+/* =========================================================
    UTILIDADES
-========================================== */
+========================================================= */
 
-function formatNumber(n){
+function formatNumber(value){
 
-return Number(n).toLocaleString(
-"es-MX",
-{
-maximumFractionDigits:3
-}
-);
+    return Number(value)
+        .toLocaleString(
+            "es-MX",
+            {
+                maximumFractionDigits:3
+            }
+        );
 
 }
 
 
 function slugify(text){
 
-return text
-.toLowerCase()
-.normalize("NFD")
-.replace(/[\u0300-\u036f]/g,"")
-.replace(/[^a-z0-9]+/g,"-")
-.replace(/^-|-$/g,"");
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(
+            /[\u0300-\u036f]/g,
+            ""
+        )
+        .replace(
+            /[^a-z0-9]+/g,
+            "-"
+        )
+        .replace(
+            /^-+|-+$/g,
+            ""
+        );
 
 }
 
 
-function escapeHtml(text){
+function escapeHtml(value){
 
-return String(text)
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
 
 }
 
+
+let toastTimer;
 
 function showToast(message){
 
-const toast =
-document.getElementById("toast");
+    const toast =
+        document.getElementById("toast");
 
-toast.textContent=message;
+    toast.textContent = message;
 
-toast.classList.add("show");
+    toast.classList.add("show");
 
-setTimeout(
-()=>toast.classList.remove("show"),
-2200
-);
+    clearTimeout(toastTimer);
+
+    toastTimer =
+        setTimeout(
+            () =>
+                toast.classList.remove("show"),
+            2500
+        );
 
 }
 
 
-/* ==========================================
-   CERRAR MODALES
-========================================== */
+/* =========================================================
+   INICIO
+========================================================= */
 
-document
-.getElementById("stockModal")
-.addEventListener("click",e=>{
+updateDashboard();
 
-if(e.target.id==="stockModal"){
-closeModal();
-}
+renderInventory();
 
-});
+renderPurchases();
+
+renderProductionHistory();
 
 
-document
-.getElementById("addModal")
-.addEventListener("click",e=>{
-
-if(e.target.id==="addModal"){
-closeAddModal();
-}
-
-});
-
-
-/* ==========================================
+/* =========================================================
    SERVICE WORKER
-========================================== */
+========================================================= */
 
 if("serviceWorker" in navigator){
 
-window.addEventListener(
-"load",
-()=>{
+    window.addEventListener(
+        "load",
+        () => {
 
-navigator.serviceWorker
-.register("./sw.js")
-.catch(
-()=>{}
-);
+            navigator.serviceWorker
+            .register("./sw.js")
+            .catch(
+                () => {}
+            );
+
+        }
+    );
 
 }
-);
-
-}
-
-
-/* ==========================================
-   INICIO
-========================================== */
-
-updateDashboard();
 
 </script>
 
